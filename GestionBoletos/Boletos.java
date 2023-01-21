@@ -1,5 +1,6 @@
+package GestionBoletos;
+
 public class Boletos {
-    
     private String nombre;
     private String apellido;
     private String direccion;
@@ -54,7 +55,4 @@ public class Boletos {
     public void setEdad(int edad) {
         this.edad = edad;
     }
-    
-
-    
 }
