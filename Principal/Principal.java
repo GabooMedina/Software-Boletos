@@ -6,6 +6,7 @@ import Utilitarios.Ingresos;
 public class Principal {
     public static void main(String[] args) {
         Ingresos escaner = new Ingresos();
+        IngresoCoperativas i = new IngresoCoperativas();
         System.out.println("===== SOFTWARE TERMINAL TERRESTRE AMBATO ===== \n" +
                 "\n === MENU DE OPCIONES ===\n" +
                 "1.-\n" +
@@ -29,10 +30,13 @@ public class Principal {
 
             case 4:
 
-               
-
-                
-                
+                System.out.println("Ingrese el Nombre de la Cooperativa");
+                String nombre = escaner.ingreso().next();
+                System.out.println("Ingrese el Telefono de la Cooperativa");
+                String telefono = escaner.ingreso().next();
+                System.out.println("Ingrese la Direccion de la Cooperativa");
+                String direccion = escaner.ingreso().next();
+                i.ingresoCooperativa(nombre, telefono, direccion);
 
                 break;
             default:
