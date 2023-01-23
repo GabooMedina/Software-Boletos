@@ -1,9 +1,49 @@
 package GestionUsusarios;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
+
+import BaseDatos.Conexion;
 public class gestionUsuarios {
     Usuario usuario;
+    Conexion c=new Conexion();
+    PreparedStatement p;
+    String instrucciones;
+    ResultSet rs;
     
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    public Conexion getC() {
+        return c;
+    }
+    public void setC(Conexion c) {
+        this.c = c;
+    }
+    public PreparedStatement getP() {
+        return p;
+    }
+    public void setP(PreparedStatement p) {
+        this.p = p;
+    }
+    public String getInstrucciones() {
+        return instrucciones;
+    }
+    public void setInstrucciones(String instrucciones) {
+        this.instrucciones = instrucciones;
+    }
+    public ResultSet getRs() {
+        return rs;
+    }
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
     public boolean MenuCreacionUsuario(){
         Scanner coso=new Scanner(System.in);
         String cor,nom,ape,nomU,cont;
@@ -20,7 +60,21 @@ public class gestionUsuarios {
         return CreacionUsuario(cor,nom, ape, nomU, cont);
     }
     public boolean CreacionUsuario (String cor,String nom,String ape,String nomUsu,String cont){
-        if(cor.isEmpty()|| nom.isEmpty()|| ape.isEmpty()||nomUsu.isEmpty()||cont.isEmpty()){
+        Connection co=c.getConexion();
+        try {
+            this.setP(co.prepareStatement("INSERT INTO Usuarios (corre,nombre,apellido,nombreUsuario,contraseña) VALUES (?,?,?,?,?)"));
+            this.getP().setString(1, cor);
+            this.getP().setString(2, nom);
+            this.getP().setString(3, ape);
+            this.getP().setString(4, nomUsu);
+            this.getP().setString(5, cont);
+            this.getP().executeUpdate();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return true;
+        /*if(cor.isEmpty()|| nom.isEmpty()|| ape.isEmpty()||nomUsu.isEmpty()||cont.isEmpty()){
             System.out.println("No debe dejar ninguna opcion en blanco");
             return MenuCreacionUsuario();
         }
@@ -35,7 +89,7 @@ public class gestionUsuarios {
         if(!cont.isEmpty())
             usuario.contraseña=cont;
         System.out.println("Usuario Creado");
-        return true;
+        return true;*/
     }
 
     public boolean RecuperacionUsuario(){
