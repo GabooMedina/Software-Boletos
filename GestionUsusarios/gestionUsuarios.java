@@ -62,7 +62,7 @@ public class gestionUsuarios {
     public boolean CreacionUsuario (String cor,String nom,String ape,String nomUsu,String cont){
         Connection co=c.getConexion();
         try {
-            this.setP(co.prepareStatement("INSERT INTO Usuarios (corre,nombre,apellido,nombreUsuario,contraseña) VALUES (?,?,?,?,?)"));
+            this.setP(co.prepareStatement("INSERT INTO Usuarios (correo,nombre,apellido,nombreUsuario,contraseña) VALUES (?,?,?,?,?)"));
             this.getP().setString(1, cor);
             this.getP().setString(2, nom);
             this.getP().setString(3, ape);

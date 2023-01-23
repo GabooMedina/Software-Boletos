@@ -7,7 +7,7 @@ public class Conexion {
 
     public static final String usuario = "cosillo007nob";
     public static final String clave = "modelamiento2023";
-    public static final String url = "jdbc:mysql://MySQL 8.0 Server:3306";
+    public static final String url = "jdbc:mysql://db4free.net:3306/software_boletos";
 
     public Connection getConexion() {
         Connection con = null;
