@@ -32,11 +32,13 @@ public class Principal {
 
                 System.out.println("Ingrese el Nombre de la Cooperativa");
                 String nombre = escaner.ingreso().next();
-                System.out.println("Ingrese el Telefono de la Cooperativa");
-                String telefono = escaner.ingreso().next();
                 System.out.println("Ingrese la Direccion de la Cooperativa");
                 String direccion = escaner.ingreso().next();
-                i.ingresoCooperativa(nombre, telefono, direccion);
+                System.out.println("Ingrese el Email de la Cooperativa");
+                String email = escaner.ingreso().next();
+                System.out.println("Ingrese el Telefono de la Cooperativa");
+                String telefono = escaner.ingreso().next();
+                i.ingresoCooperativa(nombre,direccion,email,telefono);
 
                 break;
             default:

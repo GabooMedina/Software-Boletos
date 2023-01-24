@@ -12,13 +12,14 @@ public class IngresoCoperativas {
     Conexion conexion =new Conexion();
     Connection c =conexion.getConexion();
     
-    public boolean ingresoCooperativa(String nombre, String telefono, String direccion){ 
+    public boolean ingresoCooperativa(String nombre, String direccion, String email, String telefono){ 
         try {
             
-            conexion.setP(c.prepareStatement("INSERT INTO Cooperativas (nombre,telefono,direccion) VALUES (?,?,?)"));
+            conexion.setP(c.prepareStatement("INSERT INTO Cooperativas (Nombre,Direccion,Email,Telefono) VALUES (?,?,?,?)"));
             conexion.getP().setString(1, nombre);
-            conexion.getP().setString(2, telefono);
-            conexion.getP().setString(3, direccion);
+            conexion.getP().setString(2, direccion);
+            conexion.getP().setString(3, email);
+            conexion.getP().setString(4, telefono);
             conexion.getP().executeUpdate();
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
