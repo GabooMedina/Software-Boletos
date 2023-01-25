@@ -1,6 +1,7 @@
 package GestionCooperativa;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import BaseDatos.Conexion;
@@ -48,11 +49,13 @@ public class IngresoCoperativas {
     public boolean eliminarCooperativa(String nombre) {
 
         try {
-            conexion.setP(c.prepareStatement( "DELETE FROM Cooperativas WHERE Nombre = " + nombre));
+            conexion.setP(c.prepareStatement( "DELETE FROM Cooperativas WHERE Nombre = '" + nombre+"'"));
             conexion.getP().executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
+            System.out.println(e.getMessage());
         }
+        
         return true;
     }
 
