@@ -28,26 +28,23 @@ public class IngresoCoperativas {
         return true;
     }
 
-    public boolean modificarCooperativa(String nombre, String telefono, String direccion){
+    public boolean modificarCooperativa( String nombre, String direccion, String email, String telefono,int id){
 
         try {
-            
-            conexion.setP(c.prepareStatement("UPDATE Cooperativas  SET nombre = ? , telefono = ? , direccion = ? WHERE datospersonales.cedula=?"));
+            conexion.setP(c.prepareStatement("UPDATE Cooperativas SET Nombre = ? , Direccion = ? , Email = ?, Telefono = ? WHERE Id = "+id));
             conexion.getP().setString(1, nombre);
-            conexion.getP().setString(2, telefono);
-            conexion.getP().setString(3, direccion);
+            conexion.getP().setString(2, direccion);
+            conexion.getP().setString(3, email);
+            conexion.getP().setString(4, telefono);
             conexion.getP().executeUpdate();
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
-
-
-
         return true;
     }
 
-    public boolean eliminarCooperativa(){
-
+    public boolean eliminarCooperativa(String nombre, String direccion, String email, String telefono, String id){
+        
 
         return true;
     }
