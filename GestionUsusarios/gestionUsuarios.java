@@ -93,16 +93,31 @@ public class gestionUsuarios {
     }
 
     public boolean RecuperacionUsuario(){
+        Connection co=c.getConexion();
         Scanner coso=new Scanner(System.in);
         String corr;
         System.out.println("Ingrese su correo");
         corr=coso.next();
-        if(usuario.getCorreo().equals(corr)){
+        try {
+            this.setInstrucciones("SELECT * FROM Usuarios where correo=?");
+            setP(co.prepareStatement(this.getInstrucciones()));
+            this.getP().setString(1, corr);
+            this.setRs(this.getP().executeQuery());
+            ResultSet usua=this.getRs();
+            String nomus=usua.;
+            System.out.println(nomus);
+            return true;
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return false;
+        /*if(usuario.getCorreo().equals(corr)){
             System.out.println(usuario.getNombreUsuario());
             return true; 
         }
         System.out.println("El correo ingresado no existe");
-        return false;
+        return false;*/
     }
 
     public boolean RecuperacionContraseña(){
