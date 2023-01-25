@@ -44,6 +44,7 @@ public class gestionUsuarios {
     public void setRs(ResultSet rs) {
         this.rs = rs;
     }
+    
     public boolean MenuCreacionUsuario(){
         Scanner coso=new Scanner(System.in);
         String cor,nom,ape,nomU,cont;
@@ -59,6 +60,7 @@ public class gestionUsuarios {
         cont=coso.next();
         return CreacionUsuario(cor,nom, ape, nomU, cont);
     }
+
     public boolean CreacionUsuario (String cor,String nom,String ape,String nomUsu,String cont){
         Connection co=c.getConexion();
         try {
