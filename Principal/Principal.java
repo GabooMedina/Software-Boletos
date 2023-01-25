@@ -66,6 +66,13 @@ public class Principal {
                 break;
 
             case 6:
+                do {
+                    System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
+                    String enombre = escaner.ingreso().next();
+                    i.eliminarCooperativa(enombre);
+                    System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                } while (respuesta.equals("SI"));
 
                 break;
 
