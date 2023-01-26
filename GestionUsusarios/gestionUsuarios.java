@@ -3,6 +3,7 @@ package GestionUsusarios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import BaseDatos.Conexion;
@@ -44,6 +45,7 @@ public class gestionUsuarios {
     public void setRs(ResultSet rs) {
         this.rs = rs;
     }
+
     public boolean MenuCreacionUsuario(){
         Scanner coso=new Scanner(System.in);
         String cor,nom,ape,nomU,cont;
@@ -59,6 +61,7 @@ public class gestionUsuarios {
         cont=coso.next();
         return CreacionUsuario(cor,nom, ape, nomU, cont);
     }
+
     public boolean CreacionUsuario (String cor,String nom,String ape,String nomUsu,String cont){
         Connection co=c.getConexion();
         try {
@@ -70,83 +73,97 @@ public class gestionUsuarios {
             this.getP().setString(5, cont);
             this.getP().executeUpdate();
             
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (SQLException e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
         return true;
-        /*if(cor.isEmpty()|| nom.isEmpty()|| ape.isEmpty()||nomUsu.isEmpty()||cont.isEmpty()){
-            System.out.println("No debe dejar ninguna opcion en blanco");
-            return MenuCreacionUsuario();
-        }
-        if(!cor.isEmpty())
-            usuario.correo=cor;
-        if(!nom.isEmpty())
-            usuario.nombre=nom.toUpperCase();
-        if(!ape.isEmpty())
-            usuario.apellido=ape.toUpperCase();
-        if(!nomUsu.isEmpty())
-            usuario.nombreUsuario=nomUsu;
-        if(!cont.isEmpty())
-            usuario.contraseña=cont;
-        System.out.println("Usuario Creado");
-        return true;*/
     }
 
-    public boolean RecuperacionUsuario(){
-        Connection co=c.getConexion();
+    public boolean MenuRecuperacionUsuario(){
         Scanner coso=new Scanner(System.in);
         String corr;
         System.out.println("Ingrese su correo");
         corr=coso.next();
+        return RecuperacionUsuario(corr);
+    }
+
+    public boolean RecuperacionUsuario(String correo){
+        Connection co=c.getConexion();
         try {
-            this.setInstrucciones("SELECT * FROM Usuarios where correo=?");
+            this.setInstrucciones("SELECT * FROM Usuarios WHERE correo = '" + correo+"'");
             setP(co.prepareStatement(this.getInstrucciones()));
-            this.getP().setString(1, corr);
             this.setRs(this.getP().executeQuery());
-            ResultSet usua=this.getRs();
-            String nomus=usua.;
-            System.out.println(nomus);
+            if(this.rs.next()){
+                System.out.println("Nombre de Usuario: "+this.rs.getString("nombreUsuario"));
+            }
             return true;
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (SQLException e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
         return false;
-        /*if(usuario.getCorreo().equals(corr)){
-            System.out.println(usuario.getNombreUsuario());
-            return true; 
-        }
-        System.out.println("El correo ingresado no existe");
-        return false;*/
     }
 
-    public boolean RecuperacionContraseña(){
+    public boolean MenuRecuperacionContraseña(){
         Scanner coso=new Scanner(System.in);
         String corr;
         System.out.println("Ingrese su correo");
         corr=coso.next();
-        if(usuario.getCorreo().equals(corr)){
-            System.out.println(usuario.getContraseña());
-            return true; 
+        return RecuperacionContraseña(corr);
+    }
+
+    public boolean RecuperacionContraseña(String correo){
+        Connection co=c.getConexion();
+        try {
+            this.setInstrucciones("SELECT * FROM Usuarios WHERE correo = '" + correo+"'");
+            setP(co.prepareStatement(this.getInstrucciones()));
+            this.setRs(this.getP().executeQuery());
+            if(this.rs.next()){
+                System.out.println("Contraseña: "+this.rs.getString("contraseña"));
+            }
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
-        System.out.println("El correo ingresado no existe");
         return false;
     }
 
-    public boolean CambioContraseña(){
+    public boolean MenuCambioContraseña(){
         Scanner coso=new Scanner(System.in);
-        String cont1,cont2,nuecont;
-        System.out.println("Ingrese su contraseña actual");
-        cont1=coso.next();
-        System.out.println("Ingrese otra vez su contraseña actual");
-        cont2=coso.next();
-        if(usuario.getContraseña().equals(cont1)&&usuario.getContraseña().equals(cont2)){
-            System.out.println("Ingrese su nueva contraseña");
-            nuecont=coso.next();
-            usuario.setContraseña(nuecont);
-            return true; 
+        String con;
+        System.out.println("Ingrese la contraseña actual");
+        con=coso.next();
+        return CambioContraseña(con);
+    }
+
+    public boolean CambioContraseña(String con){
+        Connection co=c.getConexion();
+        try {
+            this.setInstrucciones("SELECT * FROM Usuarios WHERE contraseña= '"+con+"'");
+            setP(co.prepareStatement(this.getInstrucciones()));
+            this.setRs(this.getP().executeQuery());
+            if(this.rs.next()){
+                Scanner coso=new Scanner(System.in);
+                String con1,con2;
+                System.out.println("Ingrese la nueva contraseña");
+                con1=coso.next();
+                System.out.println("Repita la contraseña");
+                con2=coso.next();
+                if(con2.equals(con1)){
+                    this.setInstrucciones("UPDATE Usuarios SET contraseña=? WHERE contraseña= '"+con+"'");
+                    setP(co.prepareStatement(this.getInstrucciones()));  
+                    this.getP().setString(1, con1);
+                    this.getP().executeUpdate();
+                }else if(!con2.equals(con1)){
+                    System.out.println("Las contraseñas deben coincidir");
+                    return CambioContraseña(con);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
+            System.out.println(e.getMessage());
         }
-        System.out.println("Las contraseñas no coinciden");
         return false;
     }
 }
