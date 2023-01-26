@@ -90,7 +90,9 @@ public class Principal {
                 String origen = escaner.ingreso().next();
                 System.out.println("Ingrese el Destino para la Nueva Ruta");
                 String destino = escaner.ingreso().next();
-                r.ingresoRuta(cooperativa, origen, destino);
+                System.out.println("Ingrese el Horario para la Nueva Ruta");
+                String horario = escaner.ingreso().next();
+                r.ingresoRuta(cooperativa, origen, destino, horario);
                 System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
                 respuesta = escaner.ingreso().next().toUpperCase();
             } while (respuesta.equals("SI"));
@@ -108,7 +110,9 @@ public class Principal {
                 String cambioOrigen = escaner.ingreso().next();
                 System.out.println("Ingrese el Cambio de Destino de la Ruta");
                 String cambioDestino = escaner.ingreso().next();
-                r.modificarRuta(cambioNombre, cambioOrigen, cambioDestino, id_Ruta);
+                System.out.println("Ingrese el Horario de la Ruta a Modificar");
+                String horario = escaner.ingreso().next();
+                r.modificarRuta(cambioNombre, cambioOrigen, cambioDestino,horario, id_Ruta);
                 System.out.println("Desea Modificar mas Rutas? [Si/No]");
                 respuesta = escaner.ingreso().next().toUpperCase();
             } while (respuesta.equals("SI"));

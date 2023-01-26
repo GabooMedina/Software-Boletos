@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import BaseDatos.Conexion;
 import Utilitarios.Ingresos;
-import Utilitarios.ListaCooperativas;
-
 public class IngresoCoperativas {
     Ingresos escaner = new Ingresos();
     Conexion conexion = new Conexion();

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 
 import Utilitarios.Ingresos;
-import Utilitarios.ListaCooperativas;
-
 public class Cooperativa {
 
     private String nombre;
