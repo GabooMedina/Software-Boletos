@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import GestionCooperativa.IngresoCoperativas;
+import GestionRutas.IngresoRutas;
 import Utilitarios.Ingresos;
 
 public class Principal {
@@ -8,6 +9,7 @@ public class Principal {
         Ingresos escaner = new Ingresos();
         String respuesta;
         IngresoCoperativas i = new IngresoCoperativas();
+        IngresoRutas r = new IngresoRutas();
         System.out.println("===== SOFTWARE TERMINAL TERRESTRE AMBATO ===== \n" +
                 "\n === MENU DE OPCIONES ===\n" +
                 "1.-\n" +
@@ -15,7 +17,10 @@ public class Principal {
                 "3.-\n" +
                 "4.- Crear Cooperativa\n" +
                 "5.- Modificar Cooperativa\n" +
-                "6.- Eliminar Cooperativa\n");
+                "6.- Eliminar Cooperativa\n"+
+                "7.- Crear Ruta\n"+
+                "8.- Modificar Ruta\n"+
+                "9.- Eliminar Ruta\n");
         int opcion = escaner.ingreso().nextInt();
 
         switch (opcion) {
@@ -77,6 +82,49 @@ public class Principal {
                 break;
 
             case 7:
+
+            do {
+                System.out.println("Ingrese el Nombre de la Cooperativa para la Nueva Ruta");
+                String cooperativa = escaner.ingreso().next();
+                System.out.println("Ingrese el Origen de la Nueva Ruta");
+                String origen = escaner.ingreso().next();
+                System.out.println("Ingrese el Destino para la Nueva Ruta");
+                String destino = escaner.ingreso().next();
+                r.ingresoRuta(cooperativa, origen, destino);
+                System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
+                respuesta = escaner.ingreso().next().toUpperCase();
+            } while (respuesta.equals("SI"));
+
+                break;
+
+            case 8:
+
+            do {
+                System.out.println("Ingrese el Id de la Ruta a Cambiar");
+                Integer id_Ruta = escaner.ingreso().nextInt();
+                System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
+                String cambioNombre = escaner.ingreso().next();
+                System.out.println("Ingrese el Cambio de Origen de la Ruta");
+                String cambioOrigen = escaner.ingreso().next();
+                System.out.println("Ingrese el Cambio de Destino de la Ruta");
+                String cambioDestino = escaner.ingreso().next();
+                r.modificarRuta(cambioNombre, cambioOrigen, cambioDestino, id_Ruta);
+                System.out.println("Desea Modificar mas Rutas? [Si/No]");
+                respuesta = escaner.ingreso().next().toUpperCase();
+            } while (respuesta.equals("SI"));
+
+                break;
+
+            case 9:
+
+            do {
+                System.out.println("Ingrese el Id de la Ruta a Eliminar");
+                Integer id_Ruta = escaner.ingreso().nextInt();
+                 r.deleteRuta(id_Ruta);
+                System.out.println("Desea Eliminar mas Rutas? [Si/No]");
+                respuesta = escaner.ingreso().next().toUpperCase();
+            } while (respuesta.equals("SI"));
+
 
                 break;
 
