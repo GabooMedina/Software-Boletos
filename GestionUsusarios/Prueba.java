@@ -4,7 +4,7 @@ public class Prueba {
     public static void main(String[] args) {
         gestionUsuarios u=new gestionUsuarios();
         //u.MenuCreacionUsuario();
-        u.MenuCambioContraseña();
-
+        //u.MenuCambioContraseña();
+        //u.MenuRecuperacionUsuario();
     }
 }

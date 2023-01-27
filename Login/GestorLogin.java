@@ -115,9 +115,9 @@ public class GestorLogin {
     }
 
     public void recuperarUsuario(){
-        gestorUsuarios.RecuperacionUsuario();
+        gestorUsuarios.MenuRecuperacionUsuario();
     }
     public void recuperarContraseña(){
-        gestorUsuarios.RecuperacionContraseña();
+        gestorUsuarios.MenuRecuperacionContraseña();
     }
 }
