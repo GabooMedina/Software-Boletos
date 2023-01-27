@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import BaseDatos.Conexion;
+import Utilitarios.Restricciones;
 public class gestionUsuarios {
     Usuario usuario;
     Conexion c=new Conexion();
@@ -47,30 +48,44 @@ public class gestionUsuarios {
     }
 
     public boolean MenuCreacionUsuario(){
+        Restricciones r=new Restricciones();
         Scanner coso=new Scanner(System.in);
         String cor,nom,ape,nomU,cont;
         System.out.println("Ingrese un Correo");
         cor=coso.next();
         System.out.println("Ingrese un Nombre");
-        nom=coso.next();
+        nom=coso.next().toUpperCase();
         System.out.println("Ingrese un Apellido");
-        ape=coso.next();
+        ape=coso.next().toUpperCase();
         System.out.println("Ingrese un Nombre de Usuario");
         nomU=coso.next();
         System.out.println("Ingrese una Contraseña");
-        cont=coso.next();
+        cont=coso.next(); 
+        if(!r.controlCorreo(cor)){
+            System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
+            return MenuCreacionUsuario();
+        }
+        if(!r.controlNombre(nom)){
+            System.out.println("El nombre no puede contener números o caracteres especioales\nPor favor ingrese un nombre válido\nEjemplo: Gabriel");
+            return MenuCreacionUsuario();
+        }
+        if(!r.controlApellido(ape)){
+            System.out.println("El apellido no puede contener números o caracteres especioales\nPor favor ingrese un apellido válido\nEjemplo: Tonato");
+            return MenuCreacionUsuario();
+        }
         return CreacionUsuario(cor,nom, ape, nomU, cont);
     }
 
     public boolean CreacionUsuario (String cor,String nom,String ape,String nomUsu,String cont){
         Connection co=c.getConexion();
         try {
-            this.setP(co.prepareStatement("INSERT INTO Usuarios (correo,nombre,apellido,nombreUsuario,contraseña) VALUES (?,?,?,?,?)"));
+            this.setP(co.prepareStatement("INSERT INTO Usuarios (correo,nombre,apellido,nombreUsuario,contraseña,admin) VALUES (?,?,?,?,?,?)"));
             this.getP().setString(1, cor);
             this.getP().setString(2, nom);
             this.getP().setString(3, ape);
             this.getP().setString(4, nomUsu);
             this.getP().setString(5, cont);
+            this.getP().setBoolean(6, false);
             this.getP().executeUpdate();
             
         } catch (SQLException e) {
@@ -95,8 +110,12 @@ public class gestionUsuarios {
             this.setRs(this.getP().executeQuery());
             if(this.rs.next()){
                 System.out.println("Nombre de Usuario: "+this.rs.getString("nombreUsuario"));
+                return true;
             }
-            return true;
+            else{
+                System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
+                return(MenuRecuperacionUsuario());
+            }
 
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
@@ -120,8 +139,12 @@ public class gestionUsuarios {
             this.setRs(this.getP().executeQuery());
             if(this.rs.next()){
                 System.out.println("Contraseña: "+this.rs.getString("contraseña"));
+                return true;
             }
-            return true;
+            else{
+                System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
+                return(MenuRecuperacionContraseña());
+            }
 
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
@@ -159,6 +182,10 @@ public class gestionUsuarios {
                     System.out.println("Las contraseñas deben coincidir");
                     return CambioContraseña(con);
                 }
+            }
+            else{
+                System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
+                return(MenuCambioContraseña());
             }
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
