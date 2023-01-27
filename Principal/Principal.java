@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import GestionBoletos.CompraBoleto;
 import GestionCooperativa.IngresoCoperativas;
 import GestionRutas.IngresoRutas;
 import Utilitarios.Ingresos;
@@ -10,6 +11,7 @@ public class Principal {
         String respuesta;
         IngresoCoperativas i = new IngresoCoperativas();
         IngresoRutas r = new IngresoRutas();
+        CompraBoleto b = new CompraBoleto();
         System.out.println("===== SOFTWARE TERMINAL TERRESTRE AMBATO ===== \n" +
                 "\n === MENU DE OPCIONES ===\n" +
                 "1.-\n" +
@@ -20,7 +22,8 @@ public class Principal {
                 "6.- Eliminar Cooperativa\n"+
                 "7.- Crear Ruta\n"+
                 "8.- Modificar Ruta\n"+
-                "9.- Eliminar Ruta\n");
+                "9.- Eliminar Ruta\n"+
+                "10.- Comprar Boletos");
         int opcion = escaner.ingreso().nextInt();
 
         switch (opcion) {
@@ -131,6 +134,12 @@ public class Principal {
 
 
                 break;
+
+            case 10:
+
+            b.impresionRutas();
+
+            break;
 
             default:
                 break;
