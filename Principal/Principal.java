@@ -19,10 +19,10 @@ public class Principal {
                 "3.-\n" +
                 "4.- Crear Cooperativa\n" +
                 "5.- Modificar Cooperativa\n" +
-                "6.- Eliminar Cooperativa\n"+
-                "7.- Crear Ruta\n"+
-                "8.- Modificar Ruta\n"+
-                "9.- Eliminar Ruta\n"+
+                "6.- Eliminar Cooperativa\n" +
+                "7.- Crear Ruta\n" +
+                "8.- Modificar Ruta\n" +
+                "9.- Eliminar Ruta\n" +
                 "10.- Comprar Boletos");
         int opcion = escaner.ingreso().nextInt();
 
@@ -67,7 +67,7 @@ public class Principal {
                     String cemail = escaner.ingreso().next();
                     System.out.println("Ingrese el Cambio de Telefono de la Cooperativa");
                     String ctelefono = escaner.ingreso().next();
-                    i.modificarCooperativa( cnombre, cdireccion, cemail, ctelefono, id);
+                    i.modificarCooperativa(cnombre, cdireccion, cemail, ctelefono, id);
                     System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
                 } while (respuesta.equals("SI"));
@@ -86,60 +86,59 @@ public class Principal {
 
             case 7:
 
-            do {
-                System.out.println("Ingrese el Nombre de la Cooperativa para la Nueva Ruta");
-                String cooperativa = escaner.ingreso().next();
-                System.out.println("Ingrese el Origen de la Nueva Ruta");
-                String origen = escaner.ingreso().next();
-                System.out.println("Ingrese el Destino para la Nueva Ruta");
-                String destino = escaner.ingreso().next();
-                System.out.println("Ingrese el Horario para la Nueva Ruta");
-                String horario = escaner.ingreso().next();
-                r.ingresoRuta(cooperativa, origen, destino, horario);
-                System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
-                respuesta = escaner.ingreso().next().toUpperCase();
-            } while (respuesta.equals("SI"));
+                do {
+                    System.out.println("Ingrese el Nombre de la Cooperativa para la Nueva Ruta");
+                    String cooperativa = escaner.ingreso().next();
+                    System.out.println("Ingrese el Origen de la Nueva Ruta");
+                    String origen = escaner.ingreso().next();
+                    System.out.println("Ingrese el Destino para la Nueva Ruta");
+                    String destino = escaner.ingreso().next();
+                    System.out.println("Ingrese el Horario para la Nueva Ruta");
+                    String horario = escaner.ingreso().next();
+                    r.ingresoRuta(cooperativa, origen, destino, horario);
+                    System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                } while (respuesta.equals("SI"));
 
                 break;
 
             case 8:
 
-            do {
-                System.out.println("Ingrese el Id de la Ruta a Cambiar");
-                Integer id_Ruta = escaner.ingreso().nextInt();
-                System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
-                String cambioNombre = escaner.ingreso().next();
-                System.out.println("Ingrese el Cambio de Origen de la Ruta");
-                String cambioOrigen = escaner.ingreso().next();
-                System.out.println("Ingrese el Cambio de Destino de la Ruta");
-                String cambioDestino = escaner.ingreso().next();
-                System.out.println("Ingrese el Horario de la Ruta a Modificar");
-                String horario = escaner.ingreso().next();
-                r.modificarRuta(cambioNombre, cambioOrigen, cambioDestino,horario, id_Ruta);
-                System.out.println("Desea Modificar mas Rutas? [Si/No]");
-                respuesta = escaner.ingreso().next().toUpperCase();
-            } while (respuesta.equals("SI"));
+                do {
+                    System.out.println("Ingrese el Id de la Ruta a Cambiar");
+                    Integer id_Ruta = escaner.ingreso().nextInt();
+                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
+                    String cambioNombre = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Origen de la Ruta");
+                    String cambioOrigen = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Destino de la Ruta");
+                    String cambioDestino = escaner.ingreso().next();
+                    System.out.println("Ingrese el Horario de la Ruta a Modificar");
+                    String horario = escaner.ingreso().next();
+                    r.modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, id_Ruta);
+                    System.out.println("Desea Modificar mas Rutas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                } while (respuesta.equals("SI"));
 
                 break;
 
             case 9:
 
-            do {
-                System.out.println("Ingrese el Id de la Ruta a Eliminar");
-                Integer id_Ruta = escaner.ingreso().nextInt();
-                 r.deleteRuta(id_Ruta);
-                System.out.println("Desea Eliminar mas Rutas? [Si/No]");
-                respuesta = escaner.ingreso().next().toUpperCase();
-            } while (respuesta.equals("SI"));
-
+                do {
+                    System.out.println("Ingrese el Id de la Ruta a Eliminar");
+                    Integer id_Ruta = escaner.ingreso().nextInt();
+                    r.deleteRuta(id_Ruta);
+                    System.out.println("Desea Eliminar mas Rutas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                } while (respuesta.equals("SI"));
 
                 break;
 
             case 10:
 
-            b.impresionRutas();
+                b.impresionRutas();
 
-            break;
+                break;
 
             default:
                 break;
