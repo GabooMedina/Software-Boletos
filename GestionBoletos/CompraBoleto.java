@@ -22,11 +22,12 @@ public class CompraBoleto {
             this.g.setRs(this.g.getP().executeQuery());
             while (g.getRs().next()) {
 
-                System.out.println("___________________________________________________________________________________");
-                System.out.printf("%10s %10s %10s %10s", "Cooperativa", "Origen", "Destino", "Horario\n"+
-                "_________________________________________________________________________________________\n" 
-                ,g.getRs().getNString("Cooperativa"),g.getRs().getNString("Origen"),g.getRs().getNString("Destino"),g.getRs().getNString("Horario"));
-                /*System.out.println("Cooperativa: " + g.getRs().getNString("Cooperativa"));
+                System.out.printf("%s %10s %10s %10s", "Cooperativa", "Origen", "Destino", "Horario\n"+
+                "_________________________________________________________________________________________\n"+ 
+                g.getRs().getNString("Cooperativa")+g.getRs().getNString("Origen")+g.getRs().getNString("Destino")+g.getRs().getNString("Horario"));
+               /*
+                
+                System.out.println("Cooperativa: " + g.getRs().getNString("Cooperativa"));
                 System.out.println("Origen: " + g.getRs().getNString("Origen"));
                 System.out.println("Destino: " + g.getRs().getNString("Destino"));
                 System.out.println("Horario: " + g.getRs().getNString("Horario"));
