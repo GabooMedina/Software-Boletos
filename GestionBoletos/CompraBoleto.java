@@ -30,9 +30,9 @@ public class CompraBoleto {
               
                 System.out.println("Cooperativa: " + g.getRs().getNString("Cooperativa"));
                 System.out.println("_________________________________________________________________________________________");
-                System.out.println("Cooperativa"+"\tOrigen"+"\tDestino"+"\tHorario\n"+
-                "_________________________________________________________________________________________\n"+ 
-                g.getRs().getString("Cooperativa")+"\t\t"+g.getRs().getString("Origen")+"\t\t"+g.getRs().getString("Destino")+"\t\t"+g.getRs().getString("Horario")+"\n");
+                System.out.printf("Id\t\tRutaCooperativa\tOrigen\t\tDestino\t\tHorario\n"+
+                "_________________________________________________________________________________________\n"+
+                g.getRs().getString("Id_Rutas")+"\t\t"+g.getRs().getString("Cooperativa")+"\t\t"+g.getRs().getString("Origen")+"\t\t"+g.getRs().getString("Destino")+"\t\t"+g.getRs().getString("Horario")+"\n"); 
                 /*System.out.println("Cooperativa: " + g.getRs().getNString("Cooperativa"));
 
                 System.out.println("Origen: " + g.getRs().getNString("Origen"));
