@@ -20,11 +20,13 @@ public class CompraBoleto {
             g.setInstrucciones("SELECT * FROM Rutas");
             g.setP(co.prepareStatement(g.getInstrucciones()));
             this.g.setRs(this.g.getP().executeQuery());
+            System.out.printf("Id\tCooperativa\tOrigen\t\tDestino\t\tHorario\n");
             while (g.getRs().next()) {
-                System.out.println("_________________________________________________________________________________________");
-                System.out.printf("Id\t\tRutaCooperativa\tOrigen\t\tDestino\t\tHorario\n"+
-                "_________________________________________________________________________________________\n"+
-                g.getRs().getString("Id_Rutas")+"\t\t"+g.getRs().getString("Cooperativa")+"\t\t"+g.getRs().getString("Origen")+"\t\t"+g.getRs().getString("Destino")+"\t\t"+g.getRs().getString("Horario")+"\n"); 
+                System.out.printf(
+                        "_________________________________________________________________________________________\n" +
+                                g.getRs().getString("Id_Rutas") + "\t" + g.getRs().getString("Cooperativa") + "\t\t"
+                                + g.getRs().getString("Origen") + "\t\t" + g.getRs().getString("Destino") + "\t\t"
+                                + g.getRs().getString("Horario") + "\n");
             }
 
         } catch (SQLException e) {
