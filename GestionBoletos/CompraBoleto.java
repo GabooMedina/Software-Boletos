@@ -6,13 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import BaseDatos.Conexion;
+import Factura.Factura;
 import GestionUsusarios.gestionUsuarios;
+import Utilitarios.Ingresos;
 
 public class CompraBoleto {
-
+    Ingresos i = new Ingresos();
     gestionUsuarios g = new gestionUsuarios();
     Conexion c = new Conexion();
     Connection co = c.getConexion();
+    Factura f = new Factura();
 
     public void impresionRutas() {
 
@@ -33,6 +36,32 @@ public class CompraBoleto {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
         }
+    }
+
+    public boolean compraTicket() {
+
+        try {
+
+            System.out.print("Ingrese el Id de la Frecuencia en la que Desee Viajar: ");
+            Integer frecuencia = i.ingreso().nextInt();
+
+            g.setInstrucciones("SELECT * FROM Rutas WHERE Id_Rutas = '" + frecuencia+"'");
+            g.setP(co.prepareStatement(g.getInstrucciones()));
+            g.setRs(g.getP().executeQuery());
+            if(g.getRs().next()){
+               String cooperativa = g.getRs().getString("Cooperativa");
+               String origen = g.getRs().getString("Cooperativa");
+               String destino = g.getRs().getString("Cooperativa");
+               String horario = g.getRs().getString("Cooperativa");
+                return f.ImpresionFactura(cooperativa, origen, destino, horario);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+
     }
 
 }
