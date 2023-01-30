@@ -10,6 +10,7 @@ import BaseDatos.Conexion;
 import Utilitarios.Restricciones;
 
 public class gestionAsiento {
+    Asiento as=new Asiento();
     Conexion c=new Conexion();
     PreparedStatement p;
     String instrucciones;
@@ -112,6 +113,9 @@ public class gestionAsiento {
                     setP(co.prepareStatement(this.getInstrucciones()));  
                     this.getP().setBoolean(1, true);
                     this.getP().executeUpdate();
+                    as.setIdRuta(idRuta);
+                    as.setNumAsiento(numAsiento);
+                    as.setOcupado(true);
                     return true;
             }else{
                 System.out.println("El Asiento seleccionado no existe\nPor favor ingrese un valor valido");
