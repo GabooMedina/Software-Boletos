@@ -27,9 +27,9 @@ public class CompraBoleto {
             while (g.getRs().next()) {
                 System.out.printf(
                         "_________________________________________________________________________________________\n" +
-                                g.getRs().getString("Id_Rutas") + "\t" + g.getRs().getString("Cooperativa") + "\t\t"
+                                g.getRs().getString("Id_Rutas") + "\t" + g.getRs().getString("Cooperativa") + "\t"
                                 + g.getRs().getString("Origen") + "\t\t" + g.getRs().getString("Destino") + "\t\t"
-                                + g.getRs().getString("Horario") +g.getRs().getString("Precio") +"\n");
+                                + g.getRs().getString("Horario")+"\t\t"+ g.getRs().getString("Precio")+"\t\t" +"\n");
             }
 
         } catch (SQLException e) {
