@@ -1,5 +1,4 @@
-import java.util.Scanner;
-
+import Asientos.Asiento;
 import GestionBoletos.CompraBoleto;
 import GestionCooperativa.Cooperativa;
 import GestionCooperativa.IngresoCoperativas;

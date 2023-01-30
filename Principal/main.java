@@ -1,4 +1,3 @@
-import Login.GestorLogin;
 import Login.Login;
 
 public class main {

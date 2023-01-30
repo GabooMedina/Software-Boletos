@@ -6,15 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Asientos.Asiento;
 import BaseDatos.Conexion;
+import GestionBoletos.Boletos;
 import GestionUsusarios.Usuario;
 import GestionUsusarios.gestionUsuarios;
 import Utilitarios.Restricciones;
+import javafx.scene.control.Menu;
 
 public class Login {
   Usuario usu = new Usuario();
   gestionUsuarios gesu;
-
+  Asiento asi=new Asiento();
+  Boletos bol=new Boletos();
+  
   Conexion c = new Conexion();
   PreparedStatement p;
   String instrucciones;
