@@ -4,11 +4,14 @@ import GestionBoletos.CompraBoleto;
 import GestionCooperativa.Cooperativa;
 import GestionCooperativa.IngresoCoperativas;
 import GestionRutas.IngresoRutas;
+import GestionUsusarios.Usuario;
 import Utilitarios.Ingresos;
 
 public class Principal {
+     
+    public boolean menuUsuario(Usuario u, Asiento s){
 
-    public boolean ()
+    }
     public static void main(String[] args) {
         Ingresos escaner = new Ingresos();
         String respuesta;
