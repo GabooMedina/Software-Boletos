@@ -2,13 +2,14 @@ package GestionCooperativa;
 
 import java.util.ArrayList;
 
-
 import Utilitarios.Ingresos;
+
 public class Cooperativa {
 
     private String nombre;
     private String telefono;
     private String direccion;
+    private int id;
     Ingresos escaner = new Ingresos();
 
     public Cooperativa(String nombre, String telefono, String direccion) {
@@ -16,6 +17,18 @@ public class Cooperativa {
         this.telefono = telefono;
         this.direccion = direccion;
 
+    }
+
+    public Cooperativa(){
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -41,6 +54,5 @@ public class Cooperativa {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
 
 }

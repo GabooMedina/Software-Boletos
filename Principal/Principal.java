@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import GestionBoletos.CompraBoleto;
+import GestionCooperativa.Cooperativa;
 import GestionCooperativa.IngresoCoperativas;
 import GestionRutas.IngresoRutas;
 import Utilitarios.Ingresos;
@@ -12,6 +13,7 @@ public class Principal {
         IngresoCoperativas i = new IngresoCoperativas();
         IngresoRutas r = new IngresoRutas();
         CompraBoleto b = new CompraBoleto();
+        Cooperativa co = new Cooperativa();
         System.out.println("===== SOFTWARE TERMINAL TERRESTRE AMBATO ===== \n" +
                 "\n === MENU DE OPCIONES ===\n" +
                 "1.-\n" +
@@ -85,21 +87,13 @@ public class Principal {
                 break;
 
             case 7:
-
                 do {
-                    System.out.println("Ingrese el Nombre de la Cooperativa para la Nueva Ruta");
-                    String cooperativa = escaner.ingreso().next();
-                    System.out.println("Ingrese el Origen de la Nueva Ruta");
-                    String origen = escaner.ingreso().next();
-                    System.out.println("Ingrese el Destino para la Nueva Ruta");
-                    String destino = escaner.ingreso().next();
-                    System.out.println("Ingrese el Horario para la Nueva Ruta");
-                    String horario = escaner.ingreso().next();
-                    r.ingresoRuta(cooperativa, origen, destino, horario);
-                    System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
+              r.cooperativasId();
+            System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
+            respuesta = escaner.ingreso().next().toUpperCase();
+       
                 } while (respuesta.equals("SI"));
-
+               
                 break;
 
             case 8:
@@ -136,7 +130,9 @@ public class Principal {
 
             case 10:
 
-                b.impresionRutas();
+               //b.impresionRutas();
+        
+              
 
                 break;
 
