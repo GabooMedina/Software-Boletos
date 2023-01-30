@@ -8,13 +8,9 @@ public class Boletos {
     private double precio;
     private Date fecha;
     
-    
-
     public Boletos(){
         
     }
-
-    
 
     public String getOrigen() {
         return origen;
