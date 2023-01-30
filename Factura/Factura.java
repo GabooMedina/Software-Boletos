@@ -14,8 +14,8 @@ public class Factura {
     Date fecha;
 
     
-    public boolean ImpresionFactura(String cooperativa, String origen, String destino, String horario, Double precio){
-        System.out.println(cooperativa+origen+destino+horario);
+    public boolean ImpresionFactura(){
+        
         return true;
     }
     

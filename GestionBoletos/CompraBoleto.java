@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Asientos.gestionAsiento;
 import BaseDatos.Conexion;
 import Factura.Factura;
 import GestionUsusarios.gestionUsuarios;
@@ -16,6 +17,9 @@ public class CompraBoleto {
     Conexion c = new Conexion();
     Connection co = c.getConexion();
     Factura f = new Factura();
+    Boletos b = new Boletos();
+    gestionAsiento a = new gestionAsiento();
+    
 
     public void impresionRutas() {
 
@@ -49,12 +53,16 @@ public class CompraBoleto {
             g.setP(co.prepareStatement(g.getInstrucciones()));
             g.setRs(g.getP().executeQuery());
             if(g.getRs().next()){
-               String cooperativa = g.getRs().getString("Cooperativa");
-               String origen = g.getRs().getString("Origen");
-               String destino = g.getRs().getString("Destino");
-               String horario = g.getRs().getString("Horario");
-               Double precio =  g.getRs().getDouble("Precio");
-                return f.ImpresionFactura(cooperativa, origen, destino, horario, precio);
+              
+                b.setCooperativa(g.getRs().getString("Cooperativa"));
+                b.setOrigen( g.getRs().getString("Origen"));
+                b.setDestino(g.getRs().getString("Destino"));
+                b.setHorario(g.getRs().getString("Horario"));
+                b.setPrecio(g.getRs().getDouble("Precio"));
+                a.menuAsientoEscogido(g.getRs().getInt("Id_rutas"));
+
+                return f.ImpresionFactura();
+
             }
 
         } catch (SQLException e) {
