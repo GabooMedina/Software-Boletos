@@ -1,21 +1,21 @@
 package Asientos;
 
 public class Asiento {
-    int idCooperativa;
+    int idRuta;
     int numAsiento;
     boolean ocupado;
     public Asiento() {
     }
-    public Asiento(int idCooperativa, int numAsiento, boolean ocupado) {
-        this.idCooperativa = idCooperativa;
+    public Asiento(int idRuta, int numAsiento, boolean ocupado) {
+        this.idRuta = idRuta;
         this.numAsiento = numAsiento;
         this.ocupado = ocupado;
     }
-    public int getIdCooperativa() {
-        return idCooperativa;
+    public int getIdRuta() {
+        return idRuta;
     }
-    public void setIdCooperativa(int idCooperativa) {
-        this.idCooperativa = idCooperativa;
+    public void setIdRuta(int idRuta) {
+        this.idRuta = idRuta;
     }
     public int getNumAsiento() {
         return numAsiento;
@@ -29,6 +29,5 @@ public class Asiento {
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
     }
-    
     
 }

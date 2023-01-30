@@ -45,7 +45,8 @@ public class GestorLogin {
         } while (!opcion.equals("5"));
     }
     
-    public void selecionMenu() {      
+    public void selecionMenu() {     
+
         try {
             instrucciones = "SELECT * FROM Usuarios WHERE admin = '" + 1 +"'";
             insercion = conectar.prepareStatement(instrucciones);
@@ -240,4 +241,6 @@ public class GestorLogin {
     public void CompraBoleto(){
         //Falta la compra de los boletos
     }
+
+    
 }
