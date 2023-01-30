@@ -87,11 +87,11 @@ public class gestionUsuarios {
             this.getP().setString(5, cont);
             this.getP().setBoolean(6, false);
             this.getP().executeUpdate();
-            
+            return true;
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
-        return true;
+        return false;
     }
 
     public boolean MenuRecuperacionUsuario(){
@@ -178,6 +178,7 @@ public class gestionUsuarios {
                     setP(co.prepareStatement(this.getInstrucciones()));  
                     this.getP().setString(1, con1);
                     this.getP().executeUpdate();
+                    return true;
                 }else if(!con2.equals(con1)){
                     System.out.println("Las contraseñas deben coincidir");
                     return CambioContraseña(con);

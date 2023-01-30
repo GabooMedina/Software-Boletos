@@ -8,6 +8,7 @@ public class Restricciones {
     String nombre = "[A-Z]*";
     String apellido= "[A-Z]+([ '-][A-Z]+)*";
     String numTelefono= "^[0][9][0-9]{8}$";
+    String numeroAsiento= "[0-9]*";
 
     public boolean controlCorreo(String cadena){
         Pattern patter= Pattern.compile(correo);
@@ -29,6 +30,12 @@ public class Restricciones {
 
     public boolean controlNumeroTelefono(String cadena){
         Pattern patter= Pattern.compile(numTelefono);
+        Matcher matcher =patter.matcher(cadena);
+        return matcher.matches();
+    }
+
+    public boolean controlNumAsiento(String cadena){
+        Pattern patter= Pattern.compile(numeroAsiento);
         Matcher matcher =patter.matcher(cadena);
         return matcher.matches();
     }
