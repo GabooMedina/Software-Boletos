@@ -7,6 +7,8 @@ import GestionRutas.IngresoRutas;
 import Utilitarios.Ingresos;
 
 public class Principal {
+
+    public boolean ()
     public static void main(String[] args) {
         Ingresos escaner = new Ingresos();
         String respuesta;

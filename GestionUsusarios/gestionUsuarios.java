@@ -142,7 +142,7 @@ public class gestionUsuarios {
                 return true;
             }
             else{
-                System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
+                System.out.println("El correo ingresado no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
                 return(MenuRecuperacionContraseña());
             }
 

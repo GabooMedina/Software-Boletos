@@ -1,6 +1,7 @@
 package GestionUsusarios;
 
 public class Usuario {
+    int id;
     String correo;
     String nombre;
     String apellido;
@@ -9,7 +10,8 @@ public class Usuario {
     public Usuario() {
     }
     
-    public Usuario(String correo,String nombre, String apellido, String nombreUsuario, String contraseña) {
+    public Usuario(int id, String correo,String nombre, String apellido, String nombreUsuario, String contraseña) {
+        this.id = id;
         this.correo = correo;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -56,6 +58,14 @@ public class Usuario {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     
