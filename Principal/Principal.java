@@ -25,7 +25,8 @@ public class Principal {
                 "7.- Crear Ruta\n" +
                 "8.- Modificar Ruta\n" +
                 "9.- Eliminar Ruta\n" +
-                "10.- Comprar Boletos");
+                "10.- Comprar Boletos\n"+
+                "11-.Registro Compra○\n");
         int opcion = escaner.ingreso().nextInt();
 
         switch (opcion) {
@@ -135,6 +136,14 @@ public class Principal {
               
 
                 break;
+
+            case 11:
+            b.impresionRutas();
+            b.compraTicket();
+
+            //Instanciar objetos en el main y pasarlos como parametros e los metoods de registro
+
+            break;
 
             default:
                 break;
