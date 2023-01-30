@@ -95,6 +95,8 @@ public class Principal {
                     String destino = escaner.ingreso().next();
                     System.out.println("Ingrese el Horario para la Nueva Ruta");
                     String horario = escaner.ingreso().next();
+                    System.out.println("Ingrese el Precio para la Nueva Ruta");
+                    Double precio = escaner.ingreso().nextDouble();
                     r.ingresoRuta(cooperativa, origen, destino, horario);
                     System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
