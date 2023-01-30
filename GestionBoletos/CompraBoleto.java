@@ -23,13 +23,13 @@ public class CompraBoleto {
             g.setInstrucciones("SELECT * FROM Rutas");
             g.setP(co.prepareStatement(g.getInstrucciones()));
             this.g.setRs(this.g.getP().executeQuery());
-            System.out.printf("Id\tCooperativa\tOrigen\t\tDestino\t\tHorario\n");
+            System.out.printf("Id\tCooperativa\tOrigen\t\tDestino\t\tHorario\t\tPrecio\n");
             while (g.getRs().next()) {
                 System.out.printf(
                         "_________________________________________________________________________________________\n" +
                                 g.getRs().getString("Id_Rutas") + "\t" + g.getRs().getString("Cooperativa") + "\t\t"
                                 + g.getRs().getString("Origen") + "\t\t" + g.getRs().getString("Destino") + "\t\t"
-                                + g.getRs().getString("Horario") + "\n");
+                                + g.getRs().getString("Horario") +g.getRs().getString("Precio") +"\n");
             }
 
         } catch (SQLException e) {
@@ -50,10 +50,11 @@ public class CompraBoleto {
             g.setRs(g.getP().executeQuery());
             if(g.getRs().next()){
                String cooperativa = g.getRs().getString("Cooperativa");
-               String origen = g.getRs().getString("Cooperativa");
-               String destino = g.getRs().getString("Cooperativa");
-               String horario = g.getRs().getString("Cooperativa");
-                return f.ImpresionFactura(cooperativa, origen, destino, horario);
+               String origen = g.getRs().getString("Origen");
+               String destino = g.getRs().getString("Destino");
+               String horario = g.getRs().getString("Horario");
+               Double precio =  g.getRs().getDouble("Precio");
+                return f.ImpresionFactura(cooperativa, origen, destino, horario, precio);
             }
 
         } catch (SQLException e) {
