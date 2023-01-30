@@ -2,6 +2,10 @@ package Factura;
 
 import java.sql.Date;
 
+import Asientos.Asiento;
+import GestionBoletos.Boletos;
+import GestionUsusarios.Usuario;
+
 public class Factura {
     int idUsuario;
     int id;
@@ -12,11 +16,11 @@ public class Factura {
     Double precio;
     int asiento;
     Date fecha;
+    Usuario user;
+    Boletos boleto;
+    Asiento asientos;
 
     public Factura() {
-    }
-    public boolean ImpresionFactura(){
-        
     }
 
     public int getIdUsuario() {
@@ -108,8 +112,12 @@ public class Factura {
         this.fecha = fecha;
     }
 
-    public boolean ImpresionFactura(String cooperativa, String origen, String destino, String horario, Double precio){
-        return true;
+    public boolean ImpresionFactura(){
+        System.out.println(boleto.getCooperativa());//+"\t"+ boleto.getOrigen()+"\t"+boleto.getDestino()+"\t"+boleto.getHorario()+"\t"+boleto.getPrecio() );
+      //  System.out.println(asientos.getIdRuta()+"\t"+asientos.getNumAsiento());
+        return false;
     }
+
+
     
 }
