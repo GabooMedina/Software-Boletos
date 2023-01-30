@@ -22,7 +22,7 @@ public class GestorLogin {
     PreparedStatement insercion;
     Connection conectar =conexion.getConexion();
     String opcion, instrucciones;
-    Resultset resultado;
+    Resultset rs;
 
     public void ejecucion() {
         do {
@@ -49,11 +49,11 @@ public class GestorLogin {
         try {
             instrucciones = "SELECT * FROM Usuarios WHERE admin = '" + 1 +"'";
             insercion = conectar.prepareStatement(instrucciones);
-            resultado = (Resultset) insercion.executeQuery();   
-            /* 
-            if(resultado.next()){
+            rs = (Resultset) insercion.executeQuery();   
+
+            if(rs.next()){
                 //Pedir ayuda 
-            }*/
+            }
 
         } catch (SQLException e) {
             System.out.println(" === ERROR EN BD ===");
