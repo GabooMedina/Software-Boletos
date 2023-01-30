@@ -11,6 +11,7 @@ import BaseDatos.Conexion;
 import GestionBoletos.Boletos;
 import GestionUsusarios.Usuario;
 import GestionUsusarios.gestionUsuarios;
+import Menus.Menus;
 import Utilitarios.Restricciones;
 import javafx.scene.control.Menu;
 
@@ -19,7 +20,7 @@ public class Login {
   gestionUsuarios gesu;
   Asiento asi=new Asiento();
   Boletos bol=new Boletos();
-  
+  Menus men=new Menus();
   Conexion c = new Conexion();
   PreparedStatement p;
   String instrucciones;
@@ -117,9 +118,9 @@ public class Login {
               usu.setNombre(this.rs.getString("nombre"));
               usu.setNombre(this.rs.getString("apellido"));
               if(this.rs.getInt("admin")==1){
-                return 
+                
               }else{
-                return 
+                men.MenuUsuario(usu, asi, bol);
               }
             }
             else{
