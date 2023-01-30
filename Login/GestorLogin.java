@@ -1,7 +1,11 @@
 package Login;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import com.mysql.cj.protocol.Resultset;
 
 import BaseDatos.Conexion;
 import GestionCooperativa.IngresoCoperativas;
@@ -15,8 +19,10 @@ public class GestorLogin {
     IngresoCoperativas ingresoCooperativa = new IngresoCoperativas();
     IngresoRutas ingresoRutas = new IngresoRutas();
     Conexion conexion = new Conexion();
+    PreparedStatement insercion;
     Connection conectar =conexion.getConexion();
-    String opcion;
+    String opcion, instrucciones;
+    Resultset resultado;
 
     public void ejecucion() {
         do {
@@ -39,8 +45,19 @@ public class GestorLogin {
         } while (!opcion.equals("5"));
     }
     
-    public void selecionMenu(){
-        //Me falta definir el nombre
+    public void selecionMenu() {      
+        try {
+            instrucciones = "SELECT * FROM Usuarios WHERE admin = '" + 1 +"'";
+            insercion = conectar.prepareStatement(instrucciones);
+            resultado = (Resultset) insercion.executeQuery();   
+            /* 
+            if(resultado.next()){
+                //Pedir ayuda 
+            }*/
+
+        } catch (SQLException e) {
+            System.out.println(" === ERROR EN BD ===");
+        }
     }
 
     public void menuPrincipal() {
