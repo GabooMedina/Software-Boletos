@@ -5,6 +5,7 @@ import GestionCooperativa.Cooperativa;
 import GestionUsusarios.gestionUsuarios;
 import Utilitarios.Ingresos;
 
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -16,7 +17,7 @@ public class IngresoRutas {
     Ingresos i = new Ingresos();
     Cooperativa cop;
     String respuesta;
-
+    
     public boolean ingresoRuta(int id, String nombre, String origen, String destino, String horario, Double precio) {
 
         try {
