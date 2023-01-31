@@ -85,8 +85,13 @@ public class Menus {
                     System.out.println("Ingrese el Telefono de la Cooperativa");
                     String telefono = escaner.ingreso().next();
                     i.ingresoCooperativa(nombre, direccion, email, telefono);
-                    System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
+                    do{
+                        System.out.println("Desea ingresar mas Cooperativas? [Si/No]");
+                        respuesta = escaner.ingreso().next().toUpperCase();
+                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
+                            System.out.println("Ingrese solo [Si/No] ");
+                        }
+                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
                 } while (respuesta.equals("SI"));
 
                 break;
@@ -111,7 +116,7 @@ public class Menus {
                         if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
                             System.out.println("Ingrese solo [Si/No] ");
                         }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));;
+                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
 
                 } while (respuesta.equals("SI"));
                 MenuAdministrador();
