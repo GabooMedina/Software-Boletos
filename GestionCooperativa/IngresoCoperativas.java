@@ -27,12 +27,35 @@ public class IngresoCoperativas {
 
     public boolean ingresoCooperativa(String nombre, String direccion, String email, String telefono) {
         try {
+
             conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '"+nombre+"'"));
             conexion.setRs(conexion.getP().executeQuery());
             if(conexion.getRs().next()){
                 System.out.println("La Cooperativa ingresada ya existe\nPor favor ingrese una nueva Cooperativa");
                 MenuingresoCooperativa();
             }
+
+            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Direccion= '"+direccion+"'"));
+            conexion.setRs(conexion.getP().executeQuery());
+            if(conexion.getRs().next()){
+                System.out.println("La direccion ingresada ya existe\nPor favor ingrese una nueva direccion");
+                MenuingresoCooperativa();
+            }
+
+            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Email= '"+email+"'"));
+            conexion.setRs(conexion.getP().executeQuery());
+            if(conexion.getRs().next()){
+                System.out.println("el email ingresado ya existe\nPor favor ingrese un nuevo correo");
+                MenuingresoCooperativa();
+            }
+
+            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Telefono= '"+telefono+"'"));
+            conexion.setRs(conexion.getP().executeQuery());
+            if(conexion.getRs().next()){
+                System.out.println("el telefono ingresado ya existe\nPor favor ingrese un nuevo telefono");
+                MenuingresoCooperativa();
+            }
+            
             conexion.setP(
                     c.prepareStatement("INSERT INTO Cooperativas (Nombre,Direccion,Email,Telefono) VALUES (?,?,?,?)"));
             conexion.getP().setString(1, nombre);
