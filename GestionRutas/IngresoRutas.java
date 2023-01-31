@@ -40,6 +40,7 @@ public class IngresoRutas {
                     String horario = escaner.ingreso().next();
                     System.out.println("Ingrese el Precio para la Nueva Ruta");
                     Double precio = escaner.ingreso().nextDouble();
+                    c.close();
                     ingresoRuta(Integer.parseInt(id), nombre, origen, destino, horario, precio);
                 }else{
                     System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
@@ -48,20 +49,6 @@ public class IngresoRutas {
                 }
             } catch (SQLException e) {
                 System.out.println(" === ERROR DE INGRESO EN BD ===");
-            }finally {
-                try {
-                    if (conexion.getRs() != null) {
-                        conexion.getRs().close();
-                    }
-                    if (conexion.getP() != null) {
-                        conexion.getP().close();
-                    }
-                    if (c != null) {
-                        c.close();
-                    }
-                } catch (SQLException e) {
-                    System.out.println(" === ERROR DE INGRESO EN BD ===");
-                }
             }
         }else{
             System.out.println("Solo se pueden ingresar valores númericos\nPor favor vuelva a ingresarlos");
@@ -73,7 +60,6 @@ public class IngresoRutas {
     public boolean ingresoRuta(int id, String nombre, String origen, String destino, String horario, Double precio) {
 
         try {
-
             conexion.setP(
                     c.prepareStatement(
                             "INSERT INTO Rutas (idCooperativa, Cooperativa, Origen, Destino, Horario, Precio) VALUES (?,?,?,?,?,?)"));
@@ -84,6 +70,7 @@ public class IngresoRutas {
             conexion.getP().setString(5, horario);
             conexion.getP().setDouble(6, precio);
             conexion.getP().executeUpdate();
+            c.close();
             asiento.generarAsientos(id);
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
@@ -117,7 +104,7 @@ public class IngresoRutas {
                 System.out.println("___________________________________________");
                 System.out.printf(g.getRs().getInt("Id") + "\t" + g.getRs().getString("Nombre") + "\n");
             }
-
+            c.close();
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
@@ -152,6 +139,7 @@ public class IngresoRutas {
             conexion.getP().setString(3, destino);
             conexion.getP().setString(4, horario);
             conexion.getP().executeUpdate();
+            c.close();
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e.getMessage());
@@ -181,6 +169,7 @@ public class IngresoRutas {
                     try {
                         conexion.setP(c.prepareStatement("DELETE FROM Rutas WHERE Id_Rutas = '" + id_Rutas + "'"));
                         conexion.getP().executeUpdate();
+                        c.close();
                     } catch (SQLException e) {
                         System.out.println(" === ERROR DE INGRESO EN BD ===");
                         System.out.println(e.getMessage());

@@ -36,7 +36,7 @@ public class CompraBoleto {
                                 + g.getRs().getString("Origen") + "\t\t" + g.getRs().getString("Destino") + "\t\t"
                                 + g.getRs().getString("Horario")+"\t\t"+ g.getRs().getString("Precio")+"\t\t" +"\n");
             }
-
+            co.close();
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
@@ -62,6 +62,7 @@ public class CompraBoleto {
                 b.setPrecio(g.getRs().getDouble("Precio"));
                 b.setFecha(String.valueOf(fecha.getDate())+"/"+String.valueOf(fecha.getMonth()+1)+"/"+String.valueOf(fecha.getYear()+1900));
                 a.menuAsientoEscogido(g.getRs().getInt("Id_rutas"),as);
+                co.close();
                 f.ImpresionFactura(u, as, b, f);
 
             }

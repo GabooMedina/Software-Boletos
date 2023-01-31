@@ -121,8 +121,10 @@ public class Login {
               usu.setNombre(this.rs.getString("nombre"));
               usu.setApellido(this.rs.getString("apellido"));
               if(this.rs.getInt("admin")==1){
+                co.close();
                 men.MenuAdministrador();
               }else{
+                co.close();
                 men.MenuUsuario(usu, asi, bol, fac);
               }
             }

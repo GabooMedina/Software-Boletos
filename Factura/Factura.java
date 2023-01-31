@@ -129,6 +129,7 @@ public class Factura {
             this.setRs(this.getP().executeQuery());
             if (this.rs.next()) {
                 f.setId(this.rs.getInt("Id_compra"));
+                co.close();
                 men.MenuUsuario(u, a, b, f);
             }
         } catch (SQLException e) {
@@ -152,6 +153,7 @@ public class Factura {
                     this.setP(co.prepareStatement("DELETE * FROM RegistroCompra Where idUsuario= '" + f.getIdUsuario()
                             + "' AND Asiento= '" + f.getAsiento() + "' AND Fecha= '" + f.getFecha() + "'"));
                     this.setRs(this.getP().executeQuery());
+                    co.close();
                     men.MenuUsuario(u, a, b, f);
                 } catch (SQLException e) {
                     System.out.println(" === ERROR DE INGRESO EN BD ===");
@@ -188,6 +190,7 @@ public class Factura {
                                 + this.getRs().getString("Horario") + "\t\t" + this.getRs().getString("Precio") + "\t\t"
                                 + this.getRs().getString("Asiento") + "\t\t" + this.getRs().getString("Fecha"));
             }
+            co.close();
             men.MenuUsuario(u, a, b, f);
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
