@@ -63,25 +63,11 @@ public class gestionAsiento {
                 this.getP().setBoolean(3, false);
                 this.getP().executeUpdate();
             }
+            co.close();
             return true;
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
-        }
-        finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
         }
         return true;
     }
@@ -111,24 +97,10 @@ public class gestionAsiento {
                 System.out.println("Solo debe ingresar valores númericos");
                 return menuAsientoEscogido(idRuta, as);
             }
+            co.close();
             return asientoEscogido(idRuta, Integer.parseInt(num),as);
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
-        }
-        finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-               System.out.println(e);
-            }
         }
         return false;
     }
@@ -151,6 +123,7 @@ public class gestionAsiento {
                     as.setIdRuta(idRuta);
                     as.setNumAsiento(numAsiento);
                     as.setOcupado(true);
+                    co.close();
                     return true;
             }else{
                 System.out.println("El Asiento seleccionado no existe\nPor favor ingrese un valor valido");
@@ -158,21 +131,6 @@ public class gestionAsiento {
             }
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
-        }
-        finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
         }
         return false;
     }
@@ -189,25 +147,11 @@ public class gestionAsiento {
                     setP(co.prepareStatement(this.getInstrucciones()));  
                     this.getP().setBoolean(1, false);
                     this.getP().executeUpdate();
+                    co.close();
                     return true;
             }
         } catch (SQLException e) {
 
-        }
-        finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
         }
          return false;   
     }
@@ -234,26 +178,12 @@ public class gestionAsiento {
                                 + g.getRs().getString("Origen") + "\t\t" + g.getRs().getString("Destino") + "\t\t"
                                 + g.getRs().getString("Horario")+"\t\t"+"\n");
             }
-
+            co.close();
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
         }
-        finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-        }
+        
     }
 
 }

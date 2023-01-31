@@ -40,20 +40,6 @@ public class CompraBoleto {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
-        }finally {
-            try {
-                if (g.getRs() != null) {
-                    g.getRs().close();
-                }
-                if (g.getP() != null) {
-                    g.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" === ERROR DE INGRESO EN BD ===");
-            }
         }
     }
 
@@ -82,20 +68,6 @@ public class CompraBoleto {
 
         } catch (SQLException e) {
             System.out.println(e);
-        }finally {
-            try {
-                if (g.getRs() != null) {
-                    g.getRs().close();
-                }
-                if (g.getP() != null) {
-                    g.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" === ERROR DE INGRESO EN BD ===");
-            }
         }
 
         return false;

@@ -111,23 +111,10 @@ public class Factura {
             f.setIdUsuario(u.getId());
             f.setAsiento(a.getNumAsiento());
             f.setFecha(b.getFecha());
+            co.close();
             inscomp(u, a, b, f);
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
-        }finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" === ERROR DE INGRESO EN BD ===");
-            }
         }
         return false;
     }
@@ -147,20 +134,6 @@ public class Factura {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
-        }finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" === ERROR DE INGRESO EN BD ===");
-            }
         }
     }
 
@@ -183,21 +156,7 @@ public class Factura {
                 } catch (SQLException e) {
                     System.out.println(" === ERROR DE INGRESO EN BD ===");
                 }
-                finally {
-                    try {
-                        if (this.getRs() != null) {
-                            this.getRs().close();
-                        }
-                        if (this.getP() != null) {
-                            this.getP().close();
-                        }
-                        if (co != null) {
-                            co.close();
-                        }
-                    } catch (SQLException e) {
-                        System.out.println(" === ERROR DE INGRESO EN BD ===");
-                    }
-                }
+                
             } else if (op.equals("2")) {
                 System.out.println("Saliendo de la opcion");
                 men.MenuUsuario(u, a, b, f);
@@ -234,21 +193,7 @@ public class Factura {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
         }
-        finally {
-            try {
-                if (this.getRs() != null) {
-                    this.getRs().close();
-                }
-                if (this.getP() != null) {
-                    this.getP().close();
-                }
-                if (co != null) {
-                    co.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" === ERROR DE INGRESO EN BD ===");
-            }
-        }
+        
     }
 
 }
