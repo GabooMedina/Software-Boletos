@@ -133,17 +133,19 @@ public class IngresoRutas {
         return true;
     }
 
-    public boolean MenudeleteRuta() {
+    public void MenudeleteRuta() {
         cooperativasId();
         System.out.println("Ingrese el Id de la Ruta a Eliminar");
-        Integer id_Ruta = escaner.ingreso().nextInt();
-        System.out.println("Desea Eliminar mas Rutas? [Si/No]");
-        respuesta = escaner.ingreso().next().toUpperCase();
-        return deleteRuta(id_Ruta);
+        String id_Ruta = escaner.ingreso().next();
+        if(r.controlNum(id_Ruta)){
+            deleteRuta(Integer.parseInt(id_Ruta));
+        }else if(!r.controlNum(id_Ruta)){
+            System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
+            MenudeleteRuta();
+        }
     }
 
     public boolean deleteRuta(int id_Rutas) {
-
         try {
             conexion.setP(c.prepareStatement("DELETE FROM Rutas WHERE Id_Rutas = '" + id_Rutas + "'"));
             conexion.getP().executeUpdate();
