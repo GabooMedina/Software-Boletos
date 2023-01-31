@@ -15,7 +15,10 @@ import Utilitarios.Restricciones;
 
 public class Menus {
 
-
+    Ingresos escaner = new Ingresos();
+    IngresoCoperativas i = new IngresoCoperativas();
+    IngresoRutas rutas = new IngresoRutas();
+    Restricciones r = new Restricciones();
     String respuesta;
 
     public void MenuUsuario(Usuario u, Asiento a, Boletos b, Factura f) {
@@ -85,13 +88,8 @@ public class Menus {
                     System.out.println("Ingrese el Telefono de la Cooperativa");
                     String telefono = escaner.ingreso().next();
                     i.ingresoCooperativa(nombre, direccion, email, telefono);
-                    do{
-                        System.out.println("Desea ingresar mas Cooperativas? [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
-                            System.out.println("Ingrese solo [Si/No] ");
-                        }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
+                    System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
                 } while (respuesta.equals("SI"));
 
                 break;
@@ -116,7 +114,7 @@ public class Menus {
                         if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
                             System.out.println("Ingrese solo [Si/No] ");
                         }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
+                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));;
 
                 } while (respuesta.equals("SI"));
                 MenuAdministrador();
@@ -124,34 +122,29 @@ public class Menus {
                 break;
 
             case 3:
-
-                do {
-                    System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
-                    String enombre = escaner.ingreso().next();
-                    i.eliminarCooperativa(enombre);
+                    rutas.cooperativasId();
+                    i.menueliminarCooperativa();
                     do{
-                        System.out.println("Desea eliminar mas Cooperativas? [Si/No]");
+                        System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
                         respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
-                            System.out.println("Ingrese solo [Si/No] ");
+                        if(!r.controlSI(respuesta)){
+                            System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                        }else if(respuesta.equals("SI")){
+                            rutas.cooperativasId();
+                            i.menueliminarCooperativa();;
+                        }else if(respuesta.equals("NO")){
+                            System.out.println("Saliendo de la opción");
+                            MenuAdministrador();
                         }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
-
-                } while (respuesta.equals("SI"));
-
+                    }while(!r.controlSI(respuesta));
+                
             case 4:
 
                 do {
-                    r.cooperativasId();
-
-                    do{
-                        System.out.println("Desea Agregar una nueva ruta [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
-                            System.out.println("Ingrese solo [Si/No] ");
-                        }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
-
+                    rutas.cooperativasId();
+                    System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    rutas.MenucrearRuta(opcion, respuesta);
                 } while (respuesta.equals("SI"));
 
                 break;
@@ -159,24 +152,8 @@ public class Menus {
             case 5:
 
                 do {
-                    System.out.println("Ingrese el Id de la Ruta a Cambiar");
-                    Integer id_Ruta = escaner.ingreso().nextInt();
-                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
-                    String cambioNombre = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Origen de la Ruta");
-                    String cambioOrigen = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Destino de la Ruta");
-                    String cambioDestino = escaner.ingreso().next();
-                    System.out.println("Ingrese el Horario de la Ruta a Modificar");
-                    String horario = escaner.ingreso().next();
-                    r.modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, id_Ruta);
-                    do{
-                        System.out.println("Desea modificar mas Rutas? [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
-                            System.out.println("Ingrese solo [Si/No] ");
-                        }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
+                    rutas.cooperativasId();
+                    rutas.menuModificarRuta();
                 } while (respuesta.equals("SI"));
 
                 break;
@@ -184,17 +161,8 @@ public class Menus {
             case 6:
 
                 do {
-                    System.out.println("Ingrese el Id de la Ruta a Eliminar");
-                    Integer id_Ruta = escaner.ingreso().nextInt();
-                    r.deleteRuta(id_Ruta);
-                    do{
-                        System.out.println("Desea eliminar mas Rutas? [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
-                            System.out.println("Ingrese solo [Si/No] ");
-                        }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
-
+                    rutas.cooperativasId();
+                    rutas.MenudeleteRuta();
                 } while (respuesta.equals("SI"));
 
                 break;
