@@ -19,7 +19,6 @@ public class Factura {
     String fecha;
     int asiento;
 
-    Menus men = new Menus();
     Conexion c = new Conexion();
     PreparedStatement p;
     String instrucciones;
@@ -120,8 +119,7 @@ public class Factura {
     }
 
     public void inscomp(Usuario u, Asiento a, Boletos b, Factura f) {
-        System.out.println(f.fecha);
-
+        Menus men=new Menus();
         Connection co = c.getConexion();
         try {
             this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario
@@ -130,7 +128,7 @@ public class Factura {
             if (this.rs.next()) {
                 f.setId(this.rs.getInt("Id_compra"));
                 co.close();
-                men.MenuUsuario(u, a, b, f);
+                imprimirFactura(u, a, b, f);
             }
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
@@ -142,6 +140,7 @@ public class Factura {
         Restricciones r = new Restricciones();
         Scanner coso = new Scanner(System.in);
         String op;
+        Menus men=new Menus();
         System.out.println("Desea eliminar la compra actual?");
         System.out.println("1.- Si\n2.- No");
         System.out.println("Seleccione una de las opciones");
@@ -150,13 +149,14 @@ public class Factura {
             if (op.equals("1")) {
                 Connection co = c.getConexion();
                 try {
-                    this.setP(co.prepareStatement("DELETE * FROM RegistroCompra Where idUsuario= '" + f.getIdUsuario()
+                    this.setP(co.prepareStatement("DELETE FROM RegistroCompra Where idUsuario= '" + f.getIdUsuario()
                             + "' AND Asiento= '" + f.getAsiento() + "' AND Fecha= '" + f.getFecha() + "'"));
-                    this.setRs(this.getP().executeQuery());
+                    this.getP().executeUpdate();
                     co.close();
                     men.MenuUsuario(u, a, b, f);
                 } catch (SQLException e) {
                     System.out.println(" === ERROR DE INGRESO EN BD ===");
+                    System.out.println(e);
                 }
                 
             } else if (op.equals("2")) {
@@ -172,16 +172,15 @@ public class Factura {
             CancelarCompra(u, a, b, f);
         }
     }
-
-    public void imprimirHistorialCompras(Usuario u, Asiento a, Boletos b, Factura f) {
+    public void imprimirFactura(Usuario u, Asiento a, Boletos b, Factura f){
         Connection co = c.getConexion();
-
+        Menus men=new Menus();
         try {
-            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario + "'"));
+            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario + "'AND Id_compra= '"+f.id+"'"));
             this.setRs(this.getP().executeQuery());
             System.out.printf(
                     "Nombre\t\tApellido\t\tCooperativa\t\tOrigen\t\tDestino\t\tHorario\t\tPrecio\t\tAsiento\t\tFecha\n");
-            while (this.getRs().next()) {
+            if(this.getRs().next()) {
                 System.out.printf(
                         "_________________________________________________________________________________________\n"
                                 + this.getRs().getString("Nombre") + "\t\t" + this.getRs().getString("Apellido")
@@ -196,7 +195,30 @@ public class Factura {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
         }
+    }
+    public void imprimirHistorialCompras(Usuario u, Asiento a, Boletos b, Factura f) {
+        Connection co = c.getConexion();
+        Menus men=new Menus();
+        try {
+            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario + "'"));
+            this.setRs(this.getP().executeQuery());
+            System.out.printf(
+                    "Nombre\t\tApellido\t\tCooperativa\t\tOrigen\t\tDestino\t\tHorario\t\tPrecio\t\tAsiento\t\tFecha\n");
+            while (this.getRs().next()) {
+                System.out.printf(
+                        "_________________________________________________________________________________________\n"
+                                + this.rs.getString("Nombre") + "\t\t" + this.rs.getString("Apellido")
+                                + "\t\t" + this.getRs().getString("Cooperativa") + "\t\t"
+                                + this.rs.getString("Origen") + "\t\t" + this.rs.getString("Destino") + "\t\t"
+                                + this.rs.getString("Horario") + "\t\t" + this.rs.getString("Precio") + "\t\t"
+                                + this.rs.getString("Asiento") + "\t\t" + this.rs.getString("Fecha"));
+            }
+            co.close();
+            men.MenuUsuario(u, a, b, f);
+        } catch (Exception e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
+            System.out.println(e);
+        }
         
     }
-
 }

@@ -19,8 +19,7 @@ public class gestionUsuarios {
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
-    Restricciones r = new Restricciones();
-    Menus men = new Menus();
+    
 
     public Conexion getC() {
         return c;
@@ -55,6 +54,8 @@ public class gestionUsuarios {
     }
 
     public boolean MenuCreacionUsuario() {
+        Restricciones r=new Restricciones();
+    Menus men=new Menus();
         Scanner coso = new Scanner(System.in);
         String cor, nom, ape, nomU, cont;
         do {
@@ -114,6 +115,8 @@ public class gestionUsuarios {
     }
 
     public boolean MenuRecuperacionUsuario() {
+        Restricciones r=new Restricciones();
+    
         Scanner coso = new Scanner(System.in);
         String corr;
         do {
@@ -151,6 +154,7 @@ public class gestionUsuarios {
     public boolean MenuRecuperacionContraseña() {
         Scanner coso = new Scanner(System.in);
         String corr;
+        Restricciones r=new Restricciones();
         do {
             System.out.println("Ingrese su Correo");
             corr = coso.next();
@@ -193,6 +197,8 @@ public class gestionUsuarios {
 
     public boolean CambioContraseña(String con,Usuario u, Asiento a, Boletos b,Factura f){
         Connection co=c.getConexion();
+        Restricciones r=new Restricciones();
+    Menus men=new Menus();
         try {
             this.setInstrucciones("SELECT * FROM Usuarios WHERE contraseña= '" + con + "'");
             setP(co.prepareStatement(this.getInstrucciones()));

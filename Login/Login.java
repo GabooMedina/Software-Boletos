@@ -17,7 +17,7 @@ import Utilitarios.Restricciones;
 
 public class Login {
   Usuario usu = new Usuario();
-  gestionUsuarios gesu= new gestionUsuarios();
+  gestionUsuarios gesu;
   Asiento asi=new Asiento();
   Boletos bol=new Boletos();
   Factura fac=new Factura();

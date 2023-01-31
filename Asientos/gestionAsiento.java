@@ -17,9 +17,7 @@ public class gestionAsiento {
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
-    gestionUsuarios g = new gestionUsuarios();
-    Connection co = c.getConexion();
-    Ingresos escaner = new Ingresos();
+    
     
     public Conexion getC() {
         return c;
@@ -157,6 +155,7 @@ public class gestionAsiento {
     }
     
     public boolean menuReseteoAsientos(){
+    Ingresos escaner=new Ingresos();
 
      System.out.println("Ingrese el Id de la Ruta para limpiar los asientos : ");
      Integer id = escaner.ingreso().nextInt();
@@ -165,18 +164,18 @@ public class gestionAsiento {
     }
 
     public void impresionRutasadmin(){
-
+        Connection co=c.getConexion();
         try {
-            g.setInstrucciones("SELECT * FROM Rutas");
-            g.setP(co.prepareStatement(g.getInstrucciones()));
-            this.g.setRs(this.g.getP().executeQuery());
+            this.setInstrucciones("SELECT * FROM Rutas");
+            this.setP(co.prepareStatement(this.getInstrucciones()));
+            this.setRs(this.getP().executeQuery());
             System.out.printf("Id\tCooperativa\tOrigen\t\tDestino\t\tHorario\t\t\n");
-            while (g.getRs().next()) {
+            while (this.rs.next()) {
                 System.out.printf(
                         "_________________________________________________________________________________________\n" +
-                                g.getRs().getString("Id_Rutas") + "\t" + g.getRs().getString("Cooperativa") + "\t"
-                                + g.getRs().getString("Origen") + "\t\t" + g.getRs().getString("Destino") + "\t\t"
-                                + g.getRs().getString("Horario")+"\t\t"+"\n");
+                        this.rs.getString("Id_Rutas") + "\t" + this.rs.getString("Cooperativa") + "\t"
+                                + this.rs.getString("Origen") + "\t\t" + this.rs.getString("Destino") + "\t\t"
+                                + this.rs.getString("Horario")+"\t\t"+"\n");
             }
             co.close();
         } catch (SQLException e) {
