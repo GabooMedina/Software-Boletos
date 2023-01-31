@@ -15,25 +15,12 @@ import Utilitarios.Restricciones;
 
 public class gestionUsuarios {
 
-    Conexion c=new Conexion();
-    PreparedStatement p;
-    String instrucciones;
-    ResultSet rs;
-
-    Usuario usuario;
     Conexion c = new Conexion();
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
     Restricciones r = new Restricciones();
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    Menus men = new Menus();
 
     public Conexion getC() {
         return c;
@@ -87,7 +74,7 @@ public class gestionUsuarios {
             }
         } while (!r.controlNombre(nom));
 
-        do{
+        do {
             System.out.println("Ingrese un Apellido");
             ape = coso.next().toUpperCase();
             if (!r.controlApellido(ape)) {
@@ -95,14 +82,12 @@ public class gestionUsuarios {
                         "El apellido no puede contener números o caracteres especioales\nPor favor ingrese un apellido válido\nEjemplo: Tonato");
                 return MenuCreacionUsuario();
             }
-        }while(!r.controlApellido(ape));
-
+        } while (!r.controlApellido(ape));
 
         System.out.println("Ingrese un Nombre de Usuario");
         nomU = coso.next();
         System.out.println("Ingrese una Contraseña");
         cont = coso.next();
-
 
         return CreacionUsuario(cor, nom, ape, nomU, cont);
     }
@@ -192,29 +177,16 @@ public class gestionUsuarios {
         return false;
     }
 
-
-    public void MenuCambioContraseña(Usuario u, Asiento a, Boletos b,Factura f){
-        Scanner coso=new Scanner(System.in);
+    public void MenuCambioContraseña(Usuario u, Asiento a, Boletos b, Factura f) {
+        Scanner coso = new Scanner(System.in);
         String con;
         System.out.println("Ingrese la contraseña actual");
-        con=coso.next();
+        con = coso.next();
         CambioContraseña(con, u, a, b, f);
     }
 
     public boolean CambioContraseña(String con,Usuario u, Asiento a, Boletos b,Factura f){
         Connection co=c.getConexion();
-
-    public boolean MenuCambioContraseña() {
-        Scanner coso = new Scanner(System.in);
-        String con;
-        System.out.println("Ingrese la contraseña actual");
-        con = coso.next();
-        return CambioContraseña(con);
-    }
-
-    public boolean CambioContraseña(String con) {
-        Connection co = c.getConexion();
-
         try {
             this.setInstrucciones("SELECT * FROM Usuarios WHERE contraseña= '" + con + "'");
             setP(co.prepareStatement(this.getInstrucciones()));
@@ -248,15 +220,11 @@ public class gestionUsuarios {
                 System.out.println("La contraseña ingresada no coincide con la Actual\nPor favor vuelvalo a ingresar");
                 MenuCambioContraseña(u, a, b, f);
 
-            } else {
-                System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
-                return (MenuCambioContraseña());
-
             }
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
-            System.out.println(e.getMessage());
         }
         return false;
     }
+
 }
