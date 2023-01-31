@@ -8,6 +8,7 @@ public class IngresoCoperativas {
     Ingresos escaner = new Ingresos();
     Conexion conexion = new Conexion();
     Connection c = conexion.getConexion();
+    String respuesta;
 
     public void MenuingresoCooperativa(){
         do {
@@ -19,10 +20,10 @@ public class IngresoCoperativas {
             String email = escaner.ingreso().next();
             System.out.println("Ingrese el Telefono de la Cooperativa");
             String telefono = escaner.ingreso().next();
-            i.ingresoCooperativa(nombre, direccion, email, telefono);
+            ingresoCooperativa(nombre, direccion, email, telefono);
             System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
             respuesta = escaner.ingreso().next().toUpperCase();
-        } while (respuesta.equas("SI"));
+        } while (respuesta.equals("SI"));
     } 
 
     public boolean ingresoCooperativa(String nombre, String direccion, String email, String telefono) {
@@ -85,10 +86,28 @@ public class IngresoCoperativas {
         }
         return true;
     }
+    
+    public void menueliminarCooperativa(){
+
+        do {
+            System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
+            String enombre = escaner.ingreso().next();
+            eliminarCooperativa(enombre);
+            System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
+            respuesta = escaner.ingreso().next().toUpperCase();
+        } while (respuesta.equals("SI"));
+
+    }
 
     public boolean eliminarCooperativa(String nombre) {
 
         try {
+            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '"+nombre+"'"));
+            conexion.setRs(conexion.getP().executeQuery());
+            if(!conexion.getRs().next()){
+                System.out.println("La Cooperativa ingresada esta mal escrita o no existe\nPor favor ingrese una nueva Cooperativa");
+                menueliminarCooperativa();
+            }
             conexion.setP(c.prepareStatement( "DELETE FROM Cooperativas WHERE Nombre = '" + nombre+"'"));
             conexion.getP().executeUpdate();
         } catch (SQLException e) {

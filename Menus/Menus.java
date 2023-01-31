@@ -17,7 +17,8 @@ public class Menus {
 
 
     String respuesta;
-    public void MenuUsuario(Usuario u, Asiento a, Boletos b,Factura f) {
+
+    public void MenuUsuario(Usuario u, Asiento a, Boletos b, Factura f) {
         Restricciones r = new Restricciones();
         Scanner coso = new Scanner(System.in);
         String num;
@@ -32,7 +33,7 @@ public class Menus {
             dato = Integer.parseInt(num);
             switch (dato) {
                 case 1:
-                    CompraBoleto boleto=new CompraBoleto();
+                    CompraBoleto boleto = new CompraBoleto();
                     boleto.impresionRutas();
                     boleto.compraTicket(u, a, b, f);
                     break;
@@ -40,7 +41,7 @@ public class Menus {
                     f.CancelarCompra(u, a, b, f);
                     break;
                 case 3:
-                    gestionUsuarios cont=new gestionUsuarios();
+                    gestionUsuarios cont = new gestionUsuarios();
                     cont.MenuCambioContraseña(u, a, b, f);
                     break;
                 case 4:
@@ -84,22 +85,15 @@ public class Menus {
                     System.out.println("Ingrese el Telefono de la Cooperativa");
                     String telefono = escaner.ingreso().next();
                     i.ingresoCooperativa(nombre, direccion, email, telefono);
-                    do{
-                        System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
-                            System.out.println("Ingrese solo [Si/No] ");
-                        }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));
-
+                    System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
                 } while (respuesta.equals("SI"));
 
                 break;
 
             case 2:
-
-                r.cooperativasId();
                 do {
+                    r.cooperativasId();
                     System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
                     Integer id = escaner.ingreso().nextInt();
                     System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
@@ -120,6 +114,7 @@ public class Menus {
                     }while(!respuesta.equals("SI") || !respuesta.equals("NO"));;
 
                 } while (respuesta.equals("SI"));
+                MenuAdministrador();
 
                 break;
 
