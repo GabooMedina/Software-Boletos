@@ -15,12 +15,12 @@ import Utilitarios.Restricciones;
 
 public class Menus {
 
-    Ingresos escaner =new Ingresos();
-    IngresoCoperativas i =new IngresoCoperativas();
-    IngresoRutas rutas=new IngresoRutas();
-    Restricciones r=new Restricciones();
-    CompraBoleto boleto=new CompraBoleto();
-    gestionUsuarios cont=new gestionUsuarios();
+    Ingresos escaner = new Ingresos();
+    IngresoCoperativas i = new IngresoCoperativas();
+    IngresoRutas rutas = new IngresoRutas();
+    Restricciones r = new Restricciones();
+    CompraBoleto boleto = new CompraBoleto();
+    gestionUsuarios cont = new gestionUsuarios();
     String respuesta;
 
     public void MenuUsuario(Usuario u, Asiento a, Boletos b, Factura f) {

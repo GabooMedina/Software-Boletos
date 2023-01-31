@@ -3,7 +3,7 @@ package Utilitarios;
 import java.util.Scanner;
 
 public class Ingresos {
-    
+
     private Scanner scan;
 
     public Scanner getSc() {

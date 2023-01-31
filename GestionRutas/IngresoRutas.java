@@ -13,12 +13,12 @@ import java.sql.SQLException;
 import Asientos.gestionAsiento;
 
 public class IngresoRutas {
-    
+
     Conexion conexion = new Conexion();
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
-    
+
     public String getInstrucciones() {
         return instrucciones;
     }
@@ -52,11 +52,9 @@ public class IngresoRutas {
     }
 
     public void MenucrearRuta() {
-        Ingresos escaner=new Ingresos();
-    Cooperativa cop=new Cooperativa();
-    String respuesta;
-    Restricciones r=new Restricciones();
-    gestionAsiento asiento=new gestionAsiento();
+        Ingresos escaner = new Ingresos();
+        Cooperativa cop = new Cooperativa();
+        Restricciones r = new Restricciones();
         cooperativasId();
         Connection c = conexion.getConexion();
         System.out.println("Ingrese el id de la Cooperativa a la que quiere asociar la nueva ruta");
@@ -66,7 +64,7 @@ public class IngresoRutas {
                 conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Id" + id + "'"));
                 conexion.setRs(conexion.getP().executeQuery());
                 if (conexion.getRs().next()) {
-                    String nombre=conexion.getRs().getString("Nombre");
+                    String nombre = conexion.getRs().getString("Nombre");
                     System.out.println("Ingrese el Origen de la Nueva Ruta");
                     String origen = escaner.ingreso().next();
                     System.out.println("Ingrese el Destino para la Nueva Ruta");
@@ -77,7 +75,7 @@ public class IngresoRutas {
                     Double precio = escaner.ingreso().nextDouble();
                     c.close();
                     ingresoRuta(Integer.parseInt(id), nombre, origen, destino, horario, precio);
-                }else{
+                } else {
                     System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
 
                     MenucrearRuta();
@@ -85,7 +83,7 @@ public class IngresoRutas {
             } catch (SQLException e) {
                 System.out.println(" === ERROR DE INGRESO EN BD ===");
             }
-        }else{
+        } else {
             System.out.println("Solo se pueden ingresar valores númericos\nPor favor vuelva a ingresarlos");
             MenucrearRuta();
         }
@@ -93,11 +91,7 @@ public class IngresoRutas {
     }
 
     public boolean ingresoRuta(int id, String nombre, String origen, String destino, String horario, Double precio) {
-        Ingresos escaner=new Ingresos();
-    Cooperativa cop=new Cooperativa();
-    String respuesta;
-    Restricciones r=new Restricciones();
-    gestionAsiento asiento=new gestionAsiento();
+        gestionAsiento asiento = new gestionAsiento();
         Connection c = conexion.getConexion();
         try {
             conexion.setP(
@@ -114,7 +108,7 @@ public class IngresoRutas {
             asiento.generarAsientos(id);
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
-        }finally {
+        } finally {
             try {
                 if (conexion.getRs() != null) {
                     conexion.getRs().close();
@@ -142,7 +136,7 @@ public class IngresoRutas {
             System.out.printf("Id\tCooperativa\t\n");
             while (this.rs.next()) {
                 System.out.println("___________________________________________");
-                System.out.printf(this.rs.getInt("Id") + "\t" +this.rs.getString("Nombre") + "\n");
+                System.out.printf(this.rs.getInt("Id") + "\t" + this.rs.getString("Nombre") + "\n");
             }
             c.close();
         } catch (SQLException e) {
@@ -152,13 +146,10 @@ public class IngresoRutas {
         return false;
 
     }
-    //Colocar controles en esta
+
+    // Colocar controles en esta
     public boolean menuModificarRuta() {
-        Ingresos escaner=new Ingresos();
-    Cooperativa cop=new Cooperativa();
-    String respuesta;
-    Restricciones r=new Restricciones();
-    gestionAsiento asiento=new gestionAsiento();
+        Ingresos escaner = new Ingresos();
         cooperativasId();
         System.out.println("Ingrese el Id de la Ruta a Cambiar");
         Integer id_Ruta = escaner.ingreso().nextInt();
@@ -195,17 +186,14 @@ public class IngresoRutas {
     }
 
     public void MenudeleteRuta() {
-        Ingresos escaner=new Ingresos();
-    Cooperativa cop=new Cooperativa();
-    String respuesta;
-    Restricciones r=new Restricciones();
-    gestionAsiento asiento=new gestionAsiento();
+        Ingresos escaner = new Ingresos();
+        Restricciones r = new Restricciones();
         cooperativasId();
         System.out.println("Ingrese el Id de la Ruta a Eliminar");
         String id_Ruta = escaner.ingreso().next();
-        if(r.controlNum(id_Ruta)){
+        if (r.controlNum(id_Ruta)) {
             deleteRuta(Integer.parseInt(id_Ruta));
-        }else if(!r.controlNum(id_Ruta)){
+        } else if (!r.controlNum(id_Ruta)) {
             System.out.println("El valor ingresado debe ser númerico\nPorfavor vuelvalo a ingresar");
             MenudeleteRuta();
         }
@@ -215,26 +203,26 @@ public class IngresoRutas {
         Connection c = conexion.getConexion();
         try {
             conexion.setP(c.prepareStatement("SELECT *FROM Rutas WHERE Id_Rutas" + id_Rutas + "'"));
-                conexion.setRs(conexion.getP().executeQuery());
-                if (conexion.getRs().next()) {
-                    try {
-                        conexion.setP(c.prepareStatement("DELETE FROM Rutas WHERE Id_Rutas = '" + id_Rutas + "'"));
-                        conexion.getP().executeUpdate();
-                        c.close();
-                    } catch (SQLException e) {
-                        System.out.println(" === ERROR DE INGRESO EN BD ===");
-                        System.out.println(e.getMessage());
-                        
-                    }
-                }else{
-                    System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
-                    MenudeleteRuta();
+            conexion.setRs(conexion.getP().executeQuery());
+            if (conexion.getRs().next()) {
+                try {
+                    conexion.setP(c.prepareStatement("DELETE FROM Rutas WHERE Id_Rutas = '" + id_Rutas + "'"));
+                    conexion.getP().executeUpdate();
+                    c.close();
+                } catch (SQLException e) {
+                    System.out.println(" === ERROR DE INGRESO EN BD ===");
+                    System.out.println(e.getMessage());
+
                 }
+            } else {
+                System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
+                MenudeleteRuta();
+            }
 
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
-        
+
         return true;
     }
 

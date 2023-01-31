@@ -119,7 +119,6 @@ public class Factura {
     }
 
     public void inscomp(Usuario u, Asiento a, Boletos b, Factura f) {
-        Menus men=new Menus();
         Connection co = c.getConexion();
         try {
             this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario
@@ -140,7 +139,7 @@ public class Factura {
         Restricciones r = new Restricciones();
         Scanner coso = new Scanner(System.in);
         String op;
-        Menus men=new Menus();
+        Menus men = new Menus();
         System.out.println("Desea eliminar la compra actual?");
         System.out.println("1.- Si\n2.- No");
         System.out.println("Seleccione una de las opciones");
@@ -158,7 +157,7 @@ public class Factura {
                     System.out.println(" === ERROR DE INGRESO EN BD ===");
                     System.out.println(e);
                 }
-                
+
             } else if (op.equals("2")) {
                 System.out.println("Saliendo de la opcion");
                 men.MenuUsuario(u, a, b, f);
@@ -172,15 +171,17 @@ public class Factura {
             CancelarCompra(u, a, b, f);
         }
     }
-    public void imprimirFactura(Usuario u, Asiento a, Boletos b, Factura f){
+
+    public void imprimirFactura(Usuario u, Asiento a, Boletos b, Factura f) {
         Connection co = c.getConexion();
-        Menus men=new Menus();
+        Menus men = new Menus();
         try {
-            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario + "'AND Id_compra= '"+f.id+"'"));
+            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario
+                    + "'AND Id_compra= '" + f.id + "'"));
             this.setRs(this.getP().executeQuery());
             System.out.printf(
                     "Nombre\t\tApellido\t\tCooperativa\t\tOrigen\t\tDestino\t\tHorario\t\tPrecio\t\tAsiento\t\tFecha\n");
-            if(this.getRs().next()) {
+            if (this.getRs().next()) {
                 System.out.printf(
                         "_________________________________________________________________________________________\n"
                                 + this.getRs().getString("Nombre") + "\t\t" + this.getRs().getString("Apellido")
@@ -196,9 +197,10 @@ public class Factura {
             System.out.println(e);
         }
     }
+
     public void imprimirHistorialCompras(Usuario u, Asiento a, Boletos b, Factura f) {
         Connection co = c.getConexion();
-        Menus men=new Menus();
+        Menus men = new Menus();
         try {
             this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario + "'"));
             this.setRs(this.getP().executeQuery());
@@ -219,6 +221,6 @@ public class Factura {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
         }
-        
+
     }
 }

@@ -19,7 +19,6 @@ public class gestionUsuarios {
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
-    
 
     public Conexion getC() {
         return c;
@@ -54,8 +53,7 @@ public class gestionUsuarios {
     }
 
     public boolean MenuCreacionUsuario() {
-        Restricciones r=new Restricciones();
-    Menus men=new Menus();
+        Restricciones r = new Restricciones();
         Scanner coso = new Scanner(System.in);
         String cor, nom, ape, nomU, cont;
         do {
@@ -110,13 +108,13 @@ public class gestionUsuarios {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
-        
+
         return false;
     }
 
     public boolean MenuRecuperacionUsuario() {
-        Restricciones r=new Restricciones();
-    
+        Restricciones r = new Restricciones();
+
         Scanner coso = new Scanner(System.in);
         String corr;
         do {
@@ -147,14 +145,14 @@ public class gestionUsuarios {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
-        
+
         return false;
     }
 
     public boolean MenuRecuperacionContraseña() {
         Scanner coso = new Scanner(System.in);
         String corr;
-        Restricciones r=new Restricciones();
+        Restricciones r = new Restricciones();
         do {
             System.out.println("Ingrese su Correo");
             corr = coso.next();
@@ -183,7 +181,7 @@ public class gestionUsuarios {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
-        
+
         return false;
     }
 
@@ -195,10 +193,9 @@ public class gestionUsuarios {
         CambioContraseña(con, u, a, b, f);
     }
 
-    public boolean CambioContraseña(String con,Usuario u, Asiento a, Boletos b,Factura f){
-        Connection co=c.getConexion();
-        Restricciones r=new Restricciones();
-    Menus men=new Menus();
+    public boolean CambioContraseña(String con, Usuario u, Asiento a, Boletos b, Factura f) {
+        Connection co = c.getConexion();
+        Menus men = new Menus();
         try {
             this.setInstrucciones("SELECT * FROM Usuarios WHERE contraseña= '" + con + "'");
             setP(co.prepareStatement(this.getInstrucciones()));
@@ -218,7 +215,7 @@ public class gestionUsuarios {
 
                     u.setContraseña(con1);
                     men.MenuUsuario(u, a, b, f);
-                }else if(!con2.equals(con1)){
+                } else if (!con2.equals(con1)) {
 
                     return true;
                 } else if (!con2.equals(con1)) {
@@ -228,8 +225,7 @@ public class gestionUsuarios {
                     return CambioContraseña(con, u, a, b, f);
                 }
 
-            }
-            else{
+            } else {
                 System.out.println("La contraseña ingresada no coincide con la Actual\nPor favor vuelvalo a ingresar");
                 MenuCambioContraseña(u, a, b, f);
 

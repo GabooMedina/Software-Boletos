@@ -15,7 +15,6 @@ public class IngresoCoperativas {
     String instrucciones;
     ResultSet rs;
 
-    
     public Conexion getConexion() {
         return conexion;
     }
@@ -49,10 +48,7 @@ public class IngresoCoperativas {
     }
 
     public void MenuingresoCooperativa() {
-        Ingresos escaner=new Ingresos();
-    String respuesta;
-    Restricciones r=new Restricciones();
-    IngresoRutas rutas=new IngresoRutas();
+        Ingresos escaner = new Ingresos();
         System.out.println("Ingrese el Nombre de la Cooperativa");
         String nombre = escaner.ingreso().next();
         System.out.println("Ingrese la Direccion de la Cooperativa");
@@ -93,10 +89,8 @@ public class IngresoCoperativas {
     }
 
     public void MenuModificarCooperativa() {
-        Ingresos escaner=new Ingresos();
-    String respuesta;
-    Restricciones r=new Restricciones();
-    IngresoRutas rutas=new IngresoRutas();
+        Ingresos escaner = new Ingresos();
+        IngresoRutas rutas = new IngresoRutas();
         rutas.cooperativasId();
         System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
         Integer id = escaner.ingreso().nextInt();
@@ -129,10 +123,9 @@ public class IngresoCoperativas {
     }
 
     public void menueliminarCooperativa() {
-        Ingresos escaner=new Ingresos();
-    String respuesta;
-    Restricciones r=new Restricciones();
-    IngresoRutas rutas=new IngresoRutas();
+        Ingresos escaner = new Ingresos();
+        Restricciones r = new Restricciones();
+        IngresoRutas rutas = new IngresoRutas();
         rutas.cooperativasId();
         System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
         String nombre = escaner.ingreso().next();

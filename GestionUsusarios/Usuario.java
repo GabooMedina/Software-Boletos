@@ -7,10 +7,11 @@ public class Usuario {
     String apellido;
     String nombreUsuario;
     String contraseña;
+
     public Usuario() {
     }
-    
-    public Usuario(int id, String correo,String nombre, String apellido, String nombreUsuario, String contraseña) {
+
+    public Usuario(int id, String correo, String nombre, String apellido, String nombreUsuario, String contraseña) {
         this.id = id;
         this.correo = correo;
         this.nombre = nombre;
@@ -19,7 +20,6 @@ public class Usuario {
         this.contraseña = contraseña;
     }
 
-    
     public String getNombre() {
         return nombre;
     }
@@ -68,6 +68,4 @@ public class Usuario {
         this.id = id;
     }
 
-    
-    
 }

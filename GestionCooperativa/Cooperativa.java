@@ -1,7 +1,5 @@
 package GestionCooperativa;
 
-import java.util.ArrayList;
-
 import Utilitarios.Ingresos;
 
 public class Cooperativa {
@@ -19,7 +17,7 @@ public class Cooperativa {
 
     }
 
-    public Cooperativa(){
+    public Cooperativa() {
 
     }
 
