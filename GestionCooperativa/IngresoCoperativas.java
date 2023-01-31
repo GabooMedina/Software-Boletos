@@ -46,6 +46,7 @@ public class IngresoCoperativas {
             conexion.getP().setString(3, email);
             conexion.getP().setString(4, telefono);
             conexion.getP().executeUpdate();
+            c.close();
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
@@ -78,6 +79,7 @@ public class IngresoCoperativas {
             conexion.getP().setString(3, email);
             conexion.getP().setString(4, telefono);
             conexion.getP().executeUpdate();
+            c.close();
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
@@ -104,6 +106,7 @@ public class IngresoCoperativas {
             }
             conexion.setP(c.prepareStatement("DELETE FROM Cooperativas WHERE Nombre = '" + nombre + "'"));
             conexion.getP().executeUpdate();
+            c.close();
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e.getMessage());
