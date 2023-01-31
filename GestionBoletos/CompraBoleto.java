@@ -21,6 +21,7 @@ public class CompraBoleto {
     gestionAsiento a = new gestionAsiento();
     Date fecha=new Date();
     Calendar fe;
+    
     public void impresionRutas() {
 
         try {
