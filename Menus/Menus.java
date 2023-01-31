@@ -93,7 +93,6 @@ public class Menus {
                 break;
 
             case 2:
-                    rutas.cooperativasId();
                     i.MenuModificarCooperativa();;
                     do{
                         System.out.println("Desea Modificar mas Cooperativas? [Si/No]");
@@ -101,7 +100,6 @@ public class Menus {
                         if(!r.controlSI(respuesta)){
                             System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
                         }else if(respuesta.equals("SI")){
-                            rutas.cooperativasId();
                             i.MenuModificarCooperativa();
                         }else if(respuesta.equals("NO")){
                             System.out.println("Saliendo de la opción");
@@ -111,7 +109,6 @@ public class Menus {
                 break;
 
             case 3:
-                    rutas.cooperativasId();
                     i.menueliminarCooperativa();
                     do{
                         System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
@@ -119,7 +116,6 @@ public class Menus {
                         if(!r.controlSI(respuesta)){
                             System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
                         }else if(respuesta.equals("SI")){
-                            rutas.cooperativasId();
                             i.menueliminarCooperativa();;
                         }else if(respuesta.equals("NO")){
                             System.out.println("Saliendo de la opción");
@@ -128,31 +124,53 @@ public class Menus {
                     }while(!r.controlSI(respuesta));
                 
             case 4:
-
-                do {
-                    rutas.cooperativasId();
-                    System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
-                    rutas.MenucrearRuta(opcion, respuesta);
-                } while (respuesta.equals("SI"));
+            rutas.MenucrearRuta();
+            do{
+                System.out.println("Desea Crear otra Ruta? [Si/No]");
+                respuesta = escaner.ingreso().next().toUpperCase();
+                if(!r.controlSI(respuesta)){
+                    System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                }else if(respuesta.equals("SI")){
+                    rutas.MenucrearRuta();
+                }else if(respuesta.equals("NO")){
+                    System.out.println("Saliendo de la opción");
+                    MenuAdministrador();
+                }
+            }while(!r.controlSI(respuesta));
 
                 break;
 
             case 5:
-
-                do {
-                    rutas.cooperativasId();
-                    rutas.menuModificarRuta();
-                } while (respuesta.equals("SI"));
+                rutas.menuModificarRuta();
+                do{
+                    System.out.println("Desea Modificar otra Ruta? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if(!r.controlSI(respuesta)){
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    }else if(respuesta.equals("SI")){
+                        rutas.menuModificarRuta();
+                    }else if(respuesta.equals("NO")){
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                }while(!r.controlSI(respuesta));
 
                 break;
 
             case 6:
-
-                do {
-                    rutas.cooperativasId();
-                    rutas.MenudeleteRuta();
-                } while (respuesta.equals("SI"));
+                rutas.MenudeleteRuta();
+                do{
+                    System.out.println("Desea Eliminar otra Ruta? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if(!r.controlSI(respuesta)){
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    }else if(respuesta.equals("SI")){
+                        rutas.MenudeleteRuta();
+                    }else if(respuesta.equals("NO")){
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                }while(!r.controlSI(respuesta));
 
                 break;
 

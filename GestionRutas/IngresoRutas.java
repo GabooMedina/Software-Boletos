@@ -4,9 +4,12 @@ import BaseDatos.Conexion;
 import GestionCooperativa.Cooperativa;
 import GestionUsusarios.gestionUsuarios;
 import Utilitarios.Ingresos;
+import Utilitarios.Restricciones;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import Asientos.gestionAsiento;
 
 public class IngresoRutas {
     Ingresos escaner = new Ingresos();
@@ -16,8 +19,40 @@ public class IngresoRutas {
     Ingresos i = new Ingresos();
     Cooperativa cop;
     String respuesta;
+    Restricciones r = new Restricciones();
+    gestionAsiento asiento = new gestionAsiento();
 
-    public void menuRutas() {
+    public void MenucrearRuta() {
+        cooperativasId();
+        System.out.println("Ingrese el id de la Cooperativa a la que quiere asociar la nueva ruta");
+        String id = escaner.ingreso().next();
+        if (r.controlNum(id)) {
+            try {
+                conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Id" + id + "'"));
+                conexion.setRs(conexion.getP().executeQuery());
+                if (conexion.getRs().next()) {
+                    String nombre=conexion.getRs().getString("Nombre");
+                    System.out.println("Ingrese el Origen de la Nueva Ruta");
+                    String origen = escaner.ingreso().next();
+                    System.out.println("Ingrese el Destino para la Nueva Ruta");
+                    String destino = escaner.ingreso().next();
+                    System.out.println("Ingrese el Horario para la Nueva Ruta");
+                    String horario = escaner.ingreso().next();
+                    System.out.println("Ingrese el Precio para la Nueva Ruta");
+                    Double precio = escaner.ingreso().nextDouble();
+                    ingresoRuta(Integer.parseInt(id), nombre, origen, destino, horario, precio);
+                }else{
+                    System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
+
+                    MenucrearRuta();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
+        }else{
+            System.out.println("Solo se pueden ingresar valores númericos\nPor favor vuelva a ingresarlos");
+            MenucrearRuta();
+        }
 
     }
 
@@ -35,9 +70,9 @@ public class IngresoRutas {
             conexion.getP().setString(5, horario);
             conexion.getP().setDouble(6, precio);
             conexion.getP().executeUpdate();
+            asiento.generarAsientos(id);
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
-            System.out.println(e.getMessage());
         }
 
         return true;
@@ -55,22 +90,27 @@ public class IngresoRutas {
                 System.out.printf(g.getRs().getInt("Id") + "\t" + g.getRs().getString("Nombre") + "\n");
             }
 
-            System.out.print("Ingrese el Id de la Cooperativa: ");
-            String id = i.ingreso().next();
-
-            g.setInstrucciones("SELECT * FROM Cooperativas WHERE Id = '" + id + "'");
-            g.setP(c.prepareStatement(g.getInstrucciones()));
-            g.setRs(g.getP().executeQuery());
-            if (g.getRs().next()) {
-                return MenucrearRuta(g.getRs().getInt("Id"), g.getRs().getString("Nombre"));
-            }
-
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
-            System.out.println(e);
         }
 
         return false;
+
+    }
+
+    public boolean menuModificarRuta() {
+        cooperativasId();
+        System.out.println("Ingrese el Id de la Ruta a Cambiar");
+        Integer id_Ruta = escaner.ingreso().nextInt();
+        System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
+        String cambioNombre = escaner.ingreso().next();
+        System.out.println("Ingrese el Cambio de Origen de la Ruta");
+        String cambioOrigen = escaner.ingreso().next();
+        System.out.println("Ingrese el Cambio de Destino de la Ruta");
+        String cambioDestino = escaner.ingreso().next();
+        System.out.println("Ingrese el Horario de la Ruta a Modificar");
+        String horario = escaner.ingreso().next();
+        return modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, id_Ruta);
 
     }
 
@@ -93,6 +133,15 @@ public class IngresoRutas {
         return true;
     }
 
+    public boolean MenudeleteRuta() {
+        cooperativasId();
+        System.out.println("Ingrese el Id de la Ruta a Eliminar");
+        Integer id_Ruta = escaner.ingreso().nextInt();
+        System.out.println("Desea Eliminar mas Rutas? [Si/No]");
+        respuesta = escaner.ingreso().next().toUpperCase();
+        return deleteRuta(id_Ruta);
+    }
+
     public boolean deleteRuta(int id_Rutas) {
 
         try {
@@ -104,44 +153,6 @@ public class IngresoRutas {
         }
 
         return true;
-    }
-
-    public boolean MenucrearRuta(int id, String nombre) {
-        System.out.println("Ingrese el Origen de la Nueva Ruta");
-        String origen = escaner.ingreso().next();
-        System.out.println("Ingrese el Destino para la Nueva Ruta");
-        String destino = escaner.ingreso().next();
-        System.out.println("Ingrese el Horario para la Nueva Ruta");
-        String horario = escaner.ingreso().next();
-        System.out.println("Ingrese el Precio para la Nueva Ruta");
-        Double precio = escaner.ingreso().nextDouble();
-        return ingresoRuta(id, nombre, origen, destino, horario, precio);
-
-    }
-
-    public boolean menuModificarRuta(){
-        
-        System.out.println("Ingrese el Id de la Ruta a Cambiar");
-                    Integer id_Ruta = escaner.ingreso().nextInt();
-                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
-                    String cambioNombre = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Origen de la Ruta");
-                    String cambioOrigen = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Destino de la Ruta");
-                    String cambioDestino = escaner.ingreso().next();
-                    System.out.println("Ingrese el Horario de la Ruta a Modificar");
-                    String horario = escaner.ingreso().next();
-                    return modificarRuta(cambioNombre,cambioOrigen,cambioDestino,horario,id_Ruta);
-
-    }
-
-    public boolean MenudeleteRuta(){
-
-        System.out.println("Ingrese el Id de la Ruta a Eliminar");
-                    Integer id_Ruta = escaner.ingreso().nextInt();
-                    System.out.println("Desea Eliminar mas Rutas? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
-                    return deleteRuta(id_Ruta);
     }
 
 }
