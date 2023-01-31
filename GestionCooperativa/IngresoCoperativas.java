@@ -2,8 +2,6 @@ package GestionCooperativa;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import BaseDatos.Conexion;
 import Utilitarios.Ingresos;
 public class IngresoCoperativas {
@@ -11,9 +9,30 @@ public class IngresoCoperativas {
     Conexion conexion = new Conexion();
     Connection c = conexion.getConexion();
 
+    public void MenuingresoCooperativa(){
+        do {
+            System.out.println("Ingrese el Nombre de la Cooperativa");
+            String nombre = escaner.ingreso().next();
+            System.out.println("Ingrese la Direccion de la Cooperativa");
+            String direccion = escaner.ingreso().next();
+            System.out.println("Ingrese el Email de la Cooperativa");
+            String email = escaner.ingreso().next();
+            System.out.println("Ingrese el Telefono de la Cooperativa");
+            String telefono = escaner.ingreso().next();
+            i.ingresoCooperativa(nombre, direccion, email, telefono);
+            System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
+            respuesta = escaner.ingreso().next().toUpperCase();
+        } while (respuesta.equas("SI"));
+    } 
+
     public boolean ingresoCooperativa(String nombre, String direccion, String email, String telefono) {
         try {
-
+            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '"+nombre+"'"));
+            conexion.setRs(conexion.getP().executeQuery());
+            if(conexion.getRs().next()){
+                System.out.println("La Cooperativa ingresada ya existe\nPor favor ingrese una nueva Cooperativa");
+                MenuingresoCooperativa();
+            }
             conexion.setP(
                     c.prepareStatement("INSERT INTO Cooperativas (Nombre,Direccion,Email,Telefono) VALUES (?,?,?,?)"));
             conexion.getP().setString(1, nombre);
