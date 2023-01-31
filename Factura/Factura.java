@@ -118,7 +118,8 @@ public class Factura {
         }
         return false;
     }
-    public void inscomp(Usuario u, Asiento a, Boletos b, Factura f){
+
+    public void inscomp(Usuario u, Asiento a, Boletos b, Factura f) {
         System.out.println(f.fecha);
 
         Connection co = c.getConexion();
@@ -169,21 +170,27 @@ public class Factura {
         }
     }
 
-    public void imprimirHistorialCompras(Usuario u, Asiento a, Boletos b, Factura f){
+    public void imprimirHistorialCompras(Usuario u, Asiento a, Boletos b, Factura f) {
         Connection co = c.getConexion();
 
         try {
-            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario +"'"));
+            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario + "'"));
             this.setRs(this.getP().executeQuery());
-            System.out.printf("IdUsuario\tIdcompra\tNombre\t\tApellido\t\tCooperativa\t\tOrigen\t\tDestino\t\tHorario\t\tPrecio\t\tAsiento\t\tFecha\n");
-            while(this.getRs().next()){
-                System.out.printf("_________________________________________________________________________________________\n" +this.getRs().getString("idUsuario")+"\t"+this.getRs().getString("Idcompra")+"\t"+this.getRs().getString("Nombre")+"\t\t"+this.getRs().getString("Apellido")+"\t\t"+this.getRs().getString("Cooperativa")+"\t\t"+this.getRs().getString("Origen")+"\t\t"+this.getRs().getString("Destino")+"\t\t"+this.getRs().getString("Horario")+"\t\t"+this.getRs().getString("Precio")+"\t\t"+this.getRs().getString("Asiento")+"\t\t"+this.getRs().getString("Fecha"));
+            System.out.printf(
+                    "Nombre\t\tApellido\t\tCooperativa\t\tOrigen\t\tDestino\t\tHorario\t\tPrecio\t\tAsiento\t\tFecha\n");
+            while (this.getRs().next()) {
+                System.out.printf(
+                        "_________________________________________________________________________________________\n"
+                                + this.getRs().getString("Nombre") + "\t\t" + this.getRs().getString("Apellido")
+                                + "\t\t" + this.getRs().getString("Cooperativa") + "\t\t"
+                                + this.getRs().getString("Origen") + "\t\t" + this.getRs().getString("Destino") + "\t\t"
+                                + this.getRs().getString("Horario") + "\t\t" + this.getRs().getString("Precio") + "\t\t"
+                                + this.getRs().getString("Asiento") + "\t\t" + this.getRs().getString("Fecha"));
             }
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);
         }
     }
-
 
 }

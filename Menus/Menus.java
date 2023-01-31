@@ -95,30 +95,21 @@ public class Menus {
                 break;
 
             case 2:
-                do {
-                    r.cooperativasId();
-                    System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
-                    Integer id = escaner.ingreso().nextInt();
-                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
-                    String cnombre = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Direccion de la Cooperativa");
-                    String cdireccion = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Email de la Cooperativa");
-                    String cemail = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Telefono de la Cooperativa");
-                    String ctelefono = escaner.ingreso().next();
-                    i.modificarCooperativa(cnombre, cdireccion, cemail, ctelefono, id);
+                    rutas.cooperativasId();
+                    i.MenuModificarCooperativa();;
                     do{
-                        System.out.println("Desea modificar mas Cooperativas? [Si/No]");
+                        System.out.println("Desea Modificar mas Cooperativas? [Si/No]");
                         respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!respuesta.equals("SI") || !respuesta.equals("NO") ){
-                            System.out.println("Ingrese solo [Si/No] ");
+                        if(!r.controlSI(respuesta)){
+                            System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                        }else if(respuesta.equals("SI")){
+                            rutas.cooperativasId();
+                            i.menueliminarCooperativa();;
+                        }else if(respuesta.equals("NO")){
+                            System.out.println("Saliendo de la opción");
+                            MenuAdministrador();
                         }
-                    }while(!respuesta.equals("SI") || !respuesta.equals("NO"));;
-
-                } while (respuesta.equals("SI"));
-                MenuAdministrador();
-
+                    }while(!r.controlSI(respuesta));
                 break;
 
             case 3:
