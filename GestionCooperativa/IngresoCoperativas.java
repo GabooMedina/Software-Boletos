@@ -48,6 +48,20 @@ public class IngresoCoperativas {
             conexion.getP().executeUpdate();
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
+        }finally {
+            try {
+                if (conexion.getRs() != null) {
+                    conexion.getRs().close();
+                }
+                if (conexion.getP() != null) {
+                    conexion.getP().close();
+                }
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
         }
 
         return true;
@@ -80,6 +94,20 @@ public class IngresoCoperativas {
             conexion.getP().executeUpdate();
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
+        }finally {
+            try {
+                if (conexion.getRs() != null) {
+                    conexion.getRs().close();
+                }
+                if (conexion.getP() != null) {
+                    conexion.getP().close();
+                }
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
         }
         return true;
     }
@@ -107,6 +135,20 @@ public class IngresoCoperativas {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e.getMessage());
+        }finally {
+            try {
+                if (conexion.getRs() != null) {
+                    conexion.getRs().close();
+                }
+                if (conexion.getP() != null) {
+                    conexion.getP().close();
+                }
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
         }
         return true;
 

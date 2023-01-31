@@ -48,6 +48,20 @@ public class IngresoRutas {
                 }
             } catch (SQLException e) {
                 System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }finally {
+                try {
+                    if (conexion.getRs() != null) {
+                        conexion.getRs().close();
+                    }
+                    if (conexion.getP() != null) {
+                        conexion.getP().close();
+                    }
+                    if (c != null) {
+                        c.close();
+                    }
+                } catch (SQLException e) {
+                    System.out.println(" === ERROR DE INGRESO EN BD ===");
+                }
             }
         }else{
             System.out.println("Solo se pueden ingresar valores númericos\nPor favor vuelva a ingresarlos");
@@ -73,6 +87,20 @@ public class IngresoRutas {
             asiento.generarAsientos(id);
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
+        }finally {
+            try {
+                if (conexion.getRs() != null) {
+                    conexion.getRs().close();
+                }
+                if (conexion.getP() != null) {
+                    conexion.getP().close();
+                }
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
         }
 
         return true;
@@ -92,12 +120,26 @@ public class IngresoRutas {
 
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
+        }finally {
+            try {
+                if (conexion.getRs() != null) {
+                    conexion.getRs().close();
+                }
+                if (conexion.getP() != null) {
+                    conexion.getP().close();
+                }
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
         }
 
         return false;
 
     }
-
+    //Colocar controles en esta
     public boolean menuModificarRuta() {
         cooperativasId();
         System.out.println("Ingrese el Id de la Ruta a Cambiar");
@@ -128,6 +170,20 @@ public class IngresoRutas {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e.getMessage());
 
+        }finally {
+            try {
+                if (conexion.getRs() != null) {
+                    conexion.getRs().close();
+                }
+                if (conexion.getP() != null) {
+                    conexion.getP().close();
+                }
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
         }
 
         return true;
@@ -156,6 +212,7 @@ public class IngresoRutas {
                     } catch (SQLException e) {
                         System.out.println(" === ERROR DE INGRESO EN BD ===");
                         System.out.println(e.getMessage());
+                        
                     }
                 }else{
                     System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
@@ -164,6 +221,20 @@ public class IngresoRutas {
 
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
+        }finally {
+            try {
+                if (conexion.getRs() != null) {
+                    conexion.getRs().close();
+                }
+                if (conexion.getP() != null) {
+                    conexion.getP().close();
+                }
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(" === ERROR DE INGRESO EN BD ===");
+            }
         }
         
 
