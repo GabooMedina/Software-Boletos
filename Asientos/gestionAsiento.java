@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import BaseDatos.Conexion;
+import GestionUsusarios.gestionUsuarios;
+import Utilitarios.Ingresos;
 import Utilitarios.Restricciones;
 
 public class gestionAsiento {
@@ -15,6 +17,9 @@ public class gestionAsiento {
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
+    gestionUsuarios g = new gestionUsuarios();
+    Connection co = c.getConexion();
+    Ingresos escaner = new Ingresos();
     
     public Conexion getC() {
         return c;
@@ -128,6 +133,7 @@ public class gestionAsiento {
     }
 
     public boolean limpiarAsientos(int idRuta){
+        
         Connection co=c.getConexion();
         try {
             this.setInstrucciones("SELECT * FROM Asientos WHERE idRuta= '"+idRuta+"'");
@@ -141,8 +147,39 @@ public class gestionAsiento {
                     return true;
             }
         } catch (SQLException e) {
-            System.out.println(" === ERROR DE INGRESO EN BD ===");
+
         }
-        return false;
+         return false;   
     }
+    
+    public boolean menuReseteoAsientos(){
+
+     System.out.println("Ingrese el Id de la Ruta para limpiar los asientos : ");
+     Integer id = escaner.ingreso().nextInt();
+
+        return limpiarAsientos(id);
+    }
+
+    public void impresionRutasadmin(){
+
+        try {
+            g.setInstrucciones("SELECT * FROM Rutas");
+            g.setP(co.prepareStatement(g.getInstrucciones()));
+            this.g.setRs(this.g.getP().executeQuery());
+            System.out.printf("Id\tCooperativa\tOrigen\t\tDestino\t\tHorario\t\t\n");
+            while (g.getRs().next()) {
+                System.out.printf(
+                        "_________________________________________________________________________________________\n" +
+                                g.getRs().getString("Id_Rutas") + "\t" + g.getRs().getString("Cooperativa") + "\t"
+                                + g.getRs().getString("Origen") + "\t\t" + g.getRs().getString("Destino") + "\t\t"
+                                + g.getRs().getString("Horario")+"\t\t"+"\n");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
+            System.out.println(e);
+        }
+
+    }
+
 }
