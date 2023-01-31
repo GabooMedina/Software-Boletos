@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import BaseDatos.Conexion;
 import Utilitarios.Ingresos;
+import Utilitarios.Restricciones;
 public class IngresoCoperativas {
     Ingresos escaner = new Ingresos();
     Conexion conexion = new Conexion();
     Connection c = conexion.getConexion();
     String respuesta;
+    Restricciones r = new Restricciones();
 
     public void MenuingresoCooperativa(){
         do {
@@ -29,31 +31,10 @@ public class IngresoCoperativas {
     public boolean ingresoCooperativa(String nombre, String direccion, String email, String telefono) {
         try {
 
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '"+nombre+"'"));
+            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '"+nombre+"' OR Direccion= '"+direccion+"' OR Email= '"+email+"' OR Telefono= '"+telefono+"'"));
             conexion.setRs(conexion.getP().executeQuery());
             if(conexion.getRs().next()){
-                System.out.println("La Cooperativa ingresada ya existe\nPor favor ingrese una nueva Cooperativa");
-                MenuingresoCooperativa();
-            }
-
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Direccion= '"+direccion+"'"));
-            conexion.setRs(conexion.getP().executeQuery());
-            if(conexion.getRs().next()){
-                System.out.println("La direccion ingresada ya existe\nPor favor ingrese una nueva direccion");
-                MenuingresoCooperativa();
-            }
-
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Email= '"+email+"'"));
-            conexion.setRs(conexion.getP().executeQuery());
-            if(conexion.getRs().next()){
-                System.out.println("el email ingresado ya existe\nPor favor ingrese un nuevo correo");
-                MenuingresoCooperativa();
-            }
-
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Telefono= '"+telefono+"'"));
-            conexion.setRs(conexion.getP().executeQuery());
-            if(conexion.getRs().next()){
-                System.out.println("el telefono ingresado ya existe\nPor favor ingrese un nuevo telefono");
+                System.out.println("Uno de los datos ingresados ya existen\nPor favor ingrese una nueva Cooperativa");
                 MenuingresoCooperativa();
             }
             
@@ -116,7 +97,7 @@ public class IngresoCoperativas {
         }
         
         return true;
-        
+
     }
 
 }
