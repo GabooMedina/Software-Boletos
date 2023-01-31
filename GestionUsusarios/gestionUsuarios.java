@@ -108,6 +108,21 @@ public class gestionUsuarios {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
+        finally {
+            try {
+                if (this.getRs() != null) {
+                    this.getRs().close();
+                }
+                if (this.getP() != null) {
+                    this.getP().close();
+                }
+                if (co != null) {
+                    co.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
         return false;
     }
 
@@ -140,6 +155,21 @@ public class gestionUsuarios {
 
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
+        }
+        finally {
+            try {
+                if (this.getRs() != null) {
+                    this.getRs().close();
+                }
+                if (this.getP() != null) {
+                    this.getP().close();
+                }
+                if (co != null) {
+                    co.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
         return false;
     }
@@ -174,6 +204,22 @@ public class gestionUsuarios {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
+        finally {
+            try {
+                if (this.getRs() != null) {
+                    this.getRs().close();
+                }
+                if (this.getP() != null) {
+                    this.getP().close();
+                }
+                if (co != null) {
+                    co.close();
+                }
+            } catch (SQLException e) {
+            System.out.println(e);
+            }
+            
+            }
         return false;
     }
 
@@ -224,6 +270,23 @@ public class gestionUsuarios {
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
+
+        finally {
+            try {
+                if (this.getRs() != null) {
+                    this.getRs().close();
+                }
+                if (this.getP() != null) {
+                    this.getP().close();
+                }
+                if (co != null) {
+                    co.close();
+                }
+            } catch (SQLException e) {
+               System.out.println(e);    
+            }
+        }
+
         return false;
     }
 
