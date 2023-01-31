@@ -19,6 +19,8 @@ public class Menus {
     IngresoCoperativas i = new IngresoCoperativas();
     IngresoRutas rutas = new IngresoRutas();
     Restricciones r = new Restricciones();
+    CompraBoleto boleto = new CompraBoleto();
+    gestionUsuarios cont = new gestionUsuarios();
     String respuesta;
 
     public void MenuUsuario(Usuario u, Asiento a, Boletos b, Factura f) {
@@ -28,7 +30,8 @@ public class Menus {
         int dato;
         System.out.println("\t\tLogin");
         System.out.println("--------------------------------------");
-        System.out.println("1.- Comprar Boleto\n2.- Cancelar compra\n3.- Cambiar contraseña\n4.- Salir");
+        System.out.println(
+                "1.- Comprar Boleto\n2.- Cancelar compra\n3.- Cambiar contraseña\n4.- Mostrar Historial de Compras\n5.- Salir");
         System.out.println("--------------------------------------");
         System.out.println("Seleccione una de las opciones");
         num = coso.next();
@@ -36,18 +39,18 @@ public class Menus {
             dato = Integer.parseInt(num);
             switch (dato) {
                 case 1:
-                    CompraBoleto boleto = new CompraBoleto();
-                    boleto.impresionRutas();
                     boleto.compraTicket(u, a, b, f);
                     break;
                 case 2:
                     f.CancelarCompra(u, a, b, f);
                     break;
                 case 3:
-                    gestionUsuarios cont = new gestionUsuarios();
                     cont.MenuCambioContraseña(u, a, b, f);
                     break;
                 case 4:
+                    f.imprimirHistorialCompras(u, a, b, f);
+                    break;
+                case 5:
                     System.out.println("Gracias por ocupar el programa\nAdios");
                     break;
                 default:
@@ -77,100 +80,103 @@ public class Menus {
 
         switch (opcion) {
             case 1:
-                    i.MenuingresoCooperativa();
-                    do{
-                        System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!r.controlSI(respuesta)){
-                            System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
-                        }else if(respuesta.equals("SI")){
-                            i.MenuingresoCooperativa();;
-                        }else if(respuesta.equals("NO")){
-                            System.out.println("Saliendo de la opción");
-                            MenuAdministrador();
-                        }
-                    }while(!r.controlSI(respuesta));
+                i.MenuingresoCooperativa();
+                do {
+                    System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if (!r.controlSI(respuesta)) {
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    } else if (respuesta.equals("SI")) {
+                        i.MenuingresoCooperativa();
+                        ;
+                    } else if (respuesta.equals("NO")) {
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                } while (!r.controlSI(respuesta));
                 break;
 
             case 2:
-                    i.MenuModificarCooperativa();;
-                    do{
-                        System.out.println("Desea Modificar mas Cooperativas? [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!r.controlSI(respuesta)){
-                            System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
-                        }else if(respuesta.equals("SI")){
-                            i.MenuModificarCooperativa();
-                        }else if(respuesta.equals("NO")){
-                            System.out.println("Saliendo de la opción");
-                            MenuAdministrador();
-                        }
-                    }while(!r.controlSI(respuesta));
+                i.MenuModificarCooperativa();
+                ;
+                do {
+                    System.out.println("Desea Modificar mas Cooperativas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if (!r.controlSI(respuesta)) {
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    } else if (respuesta.equals("SI")) {
+                        i.MenuModificarCooperativa();
+                    } else if (respuesta.equals("NO")) {
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                } while (!r.controlSI(respuesta));
                 break;
 
             case 3:
-                    i.menueliminarCooperativa();
-                    do{
-                        System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
-                        respuesta = escaner.ingreso().next().toUpperCase();
-                        if(!r.controlSI(respuesta)){
-                            System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
-                        }else if(respuesta.equals("SI")){
-                            i.menueliminarCooperativa();;
-                        }else if(respuesta.equals("NO")){
-                            System.out.println("Saliendo de la opción");
-                            MenuAdministrador();
-                        }
-                    }while(!r.controlSI(respuesta));
-                
+                i.menueliminarCooperativa();
+                do {
+                    System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if (!r.controlSI(respuesta)) {
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    } else if (respuesta.equals("SI")) {
+                        i.menueliminarCooperativa();
+                        ;
+                    } else if (respuesta.equals("NO")) {
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                } while (!r.controlSI(respuesta));
+
             case 4:
-            rutas.MenucrearRuta();
-            do{
-                System.out.println("Desea Crear otra Ruta? [Si/No]");
-                respuesta = escaner.ingreso().next().toUpperCase();
-                if(!r.controlSI(respuesta)){
-                    System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
-                }else if(respuesta.equals("SI")){
-                    rutas.MenucrearRuta();
-                }else if(respuesta.equals("NO")){
-                    System.out.println("Saliendo de la opción");
-                    MenuAdministrador();
-                }
-            }while(!r.controlSI(respuesta));
+                rutas.MenucrearRuta();
+                do {
+                    System.out.println("Desea Crear otra Ruta? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if (!r.controlSI(respuesta)) {
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    } else if (respuesta.equals("SI")) {
+                        rutas.MenucrearRuta();
+                    } else if (respuesta.equals("NO")) {
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                } while (!r.controlSI(respuesta));
 
                 break;
 
             case 5:
                 rutas.menuModificarRuta();
-                do{
+                do {
                     System.out.println("Desea Modificar otra Ruta? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
-                    if(!r.controlSI(respuesta)){
+                    if (!r.controlSI(respuesta)) {
                         System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
-                    }else if(respuesta.equals("SI")){
+                    } else if (respuesta.equals("SI")) {
                         rutas.menuModificarRuta();
-                    }else if(respuesta.equals("NO")){
+                    } else if (respuesta.equals("NO")) {
                         System.out.println("Saliendo de la opción");
                         MenuAdministrador();
                     }
-                }while(!r.controlSI(respuesta));
+                } while (!r.controlSI(respuesta));
 
                 break;
 
             case 6:
                 rutas.MenudeleteRuta();
-                do{
+                do {
                     System.out.println("Desea Eliminar otra Ruta? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
-                    if(!r.controlSI(respuesta)){
+                    if (!r.controlSI(respuesta)) {
                         System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
-                    }else if(respuesta.equals("SI")){
+                    } else if (respuesta.equals("SI")) {
                         rutas.MenudeleteRuta();
-                    }else if(respuesta.equals("NO")){
+                    } else if (respuesta.equals("NO")) {
                         System.out.println("Saliendo de la opción");
                         MenuAdministrador();
                     }
-                }while(!r.controlSI(respuesta));
+                } while (!r.controlSI(respuesta));
 
                 break;
 

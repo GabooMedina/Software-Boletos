@@ -187,6 +187,7 @@ public class Factura {
                                 + this.getRs().getString("Horario") + "\t\t" + this.getRs().getString("Precio") + "\t\t"
                                 + this.getRs().getString("Asiento") + "\t\t" + this.getRs().getString("Fecha"));
             }
+            men.MenuUsuario(u, a, b, f);
         } catch (Exception e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e);

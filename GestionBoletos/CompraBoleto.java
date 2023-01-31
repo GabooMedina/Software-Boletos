@@ -46,7 +46,7 @@ public class CompraBoleto {
     public boolean compraTicket(Usuario u, Asiento as, Boletos b,Factura f) {
 
         try {
-
+            impresionRutas();
             System.out.print("Ingrese el Id de la Frecuencia en la que Desee Viajar: ");
             Integer frecuencia = i.ingreso().nextInt();
 
