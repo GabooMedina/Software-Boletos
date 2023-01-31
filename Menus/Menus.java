@@ -53,6 +53,9 @@ public class Menus {
             MenuUsuario(u, a, b, f);
         }
     }
+    
+    public static MenuUsuario(Usuarios u, Asiento,);
+}
 
     public void MenuAdministrador() {
 

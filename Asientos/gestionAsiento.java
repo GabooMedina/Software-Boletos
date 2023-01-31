@@ -87,6 +87,7 @@ public class gestionAsiento {
             }
             System.out.println("Seleccione el Asiento que desea ocupar");
             num=coso.next();
+            //RECORDARME PONER EL CONTROL SOBRE EL NUMERO DE ASIENTOS
             if(!r.controlNumAsiento(num)){
                 System.out.println("Solo debe ingresar valores númericos");
                 return menuAsientoEscogido(idRuta, as);
