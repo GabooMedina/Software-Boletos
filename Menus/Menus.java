@@ -127,19 +127,8 @@ public class Menus {
             case 5:
 
                 do {
-                    System.out.println("Ingrese el Id de la Ruta a Cambiar");
-                    Integer id_Ruta = escaner.ingreso().nextInt();
-                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
-                    String cambioNombre = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Origen de la Ruta");
-                    String cambioOrigen = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Destino de la Ruta");
-                    String cambioDestino = escaner.ingreso().next();
-                    System.out.println("Ingrese el Horario de la Ruta a Modificar");
-                    String horario = escaner.ingreso().next();
-                    rutas.modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, id_Ruta);
-                    System.out.println("Desea Modificar mas Rutas? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
+                    rutas.cooperativasId();
+                    rutas.menuModificarRuta();
                 } while (respuesta.equals("SI"));
 
                 break;
@@ -147,11 +136,8 @@ public class Menus {
             case 6:
 
                 do {
-                    System.out.println("Ingrese el Id de la Ruta a Eliminar");
-                    Integer id_Ruta = escaner.ingreso().nextInt();
-                    rutas.deleteRuta(id_Ruta);
-                    System.out.println("Desea Eliminar mas Rutas? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
+                    rutas.cooperativasId();
+                    rutas.MenudeleteRuta();
                 } while (respuesta.equals("SI"));
 
                 break;
