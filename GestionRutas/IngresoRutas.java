@@ -17,6 +17,10 @@ public class IngresoRutas {
     Ingresos i = new Ingresos();
     Cooperativa cop;
     String respuesta;
+
+    public void menuRutas(){
+        
+    }
     
     public boolean ingresoRuta(int id, String nombre, String origen, String destino, String horario, Double precio) {
 
@@ -104,8 +108,6 @@ public class IngresoRutas {
     }
 
     public boolean MenucrearRuta(int id, String nombre) {
-        
-
             System.out.println("Ingrese el Origen de la Nueva Ruta");
             String origen = escaner.ingreso().next();
             System.out.println("Ingrese el Destino para la Nueva Ruta");
@@ -116,6 +118,7 @@ public class IngresoRutas {
             Double precio = escaner.ingreso().nextDouble();
              return ingresoRuta(id, nombre, origen, destino, horario, precio);
             
+             
     }
 
 }

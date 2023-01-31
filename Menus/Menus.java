@@ -17,7 +17,7 @@ public class Menus {
 
     Ingresos escaner = new Ingresos();
     IngresoCoperativas i = new IngresoCoperativas();
-    IngresoRutas r = new IngresoRutas();
+    IngresoRutas rutas = new IngresoRutas();
 
     String respuesta;
 
@@ -84,7 +84,7 @@ public class Menus {
 
             case 2:
                 do {
-                    r.cooperativasId();
+                    rutas.cooperativasId();
                     System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
                     Integer id = escaner.ingreso().nextInt();
                     System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
@@ -116,10 +116,10 @@ public class Menus {
             case 4:
 
                 do {
-                    r.cooperativasId();
+                    rutas.cooperativasId();
                     System.out.println("Desea Agregar una Nueva Ruta? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
-
+                    rutas.MenucrearRuta(opcion, respuesta);
                 } while (respuesta.equals("SI"));
 
                 break;
@@ -137,7 +137,7 @@ public class Menus {
                     String cambioDestino = escaner.ingreso().next();
                     System.out.println("Ingrese el Horario de la Ruta a Modificar");
                     String horario = escaner.ingreso().next();
-                    r.modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, id_Ruta);
+                    rutas.modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, id_Ruta);
                     System.out.println("Desea Modificar mas Rutas? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
                 } while (respuesta.equals("SI"));
@@ -149,7 +149,7 @@ public class Menus {
                 do {
                     System.out.println("Ingrese el Id de la Ruta a Eliminar");
                     Integer id_Ruta = escaner.ingreso().nextInt();
-                    r.deleteRuta(id_Ruta);
+                    rutas.deleteRuta(id_Ruta);
                     System.out.println("Desea Eliminar mas Rutas? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
                 } while (respuesta.equals("SI"));
