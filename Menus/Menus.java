@@ -77,21 +77,19 @@ public class Menus {
 
         switch (opcion) {
             case 1:
-
-                do {
-                    System.out.println("Ingrese el Nombre de la Cooperativa");
-                    String nombre = escaner.ingreso().next();
-                    System.out.println("Ingrese la Direccion de la Cooperativa");
-                    String direccion = escaner.ingreso().next();
-                    System.out.println("Ingrese el Email de la Cooperativa");
-                    String email = escaner.ingreso().next();
-                    System.out.println("Ingrese el Telefono de la Cooperativa");
-                    String telefono = escaner.ingreso().next();
-                    i.ingresoCooperativa(nombre, direccion, email, telefono);
-                    System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
-                } while (respuesta.equals("SI"));
-
+                    i.MenuingresoCooperativa();
+                    do{
+                        System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
+                        respuesta = escaner.ingreso().next().toUpperCase();
+                        if(!r.controlSI(respuesta)){
+                            System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                        }else if(respuesta.equals("SI")){
+                            i.MenuingresoCooperativa();;
+                        }else if(respuesta.equals("NO")){
+                            System.out.println("Saliendo de la opción");
+                            MenuAdministrador();
+                        }
+                    }while(!r.controlSI(respuesta));
                 break;
 
             case 2:
@@ -104,7 +102,7 @@ public class Menus {
                             System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
                         }else if(respuesta.equals("SI")){
                             rutas.cooperativasId();
-                            i.menueliminarCooperativa();;
+                            i.MenuModificarCooperativa();
                         }else if(respuesta.equals("NO")){
                             System.out.println("Saliendo de la opción");
                             MenuAdministrador();
