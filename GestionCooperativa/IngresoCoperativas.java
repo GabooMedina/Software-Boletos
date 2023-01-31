@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import BaseDatos.Conexion;
 import Utilitarios.Ingresos;
+import Utilitarios.Restricciones;
 public class IngresoCoperativas {
     Ingresos escaner = new Ingresos();
     Conexion conexion = new Conexion();
     Connection c = conexion.getConexion();
     String respuesta;
+    Restricciones r = new Restricciones();
 
     public void MenuingresoCooperativa(){
-        do {
             System.out.println("Ingrese el Nombre de la Cooperativa");
             String nombre = escaner.ingreso().next();
             System.out.println("Ingrese la Direccion de la Cooperativa");
@@ -21,39 +22,16 @@ public class IngresoCoperativas {
             System.out.println("Ingrese el Telefono de la Cooperativa");
             String telefono = escaner.ingreso().next();
             ingresoCooperativa(nombre, direccion, email, telefono);
-            System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
-            respuesta = escaner.ingreso().next().toUpperCase();
-        } while (respuesta.equals("SI"));
+            
     } 
 
     public boolean ingresoCooperativa(String nombre, String direccion, String email, String telefono) {
         try {
 
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '"+nombre+"'"));
+            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '"+nombre+"' OR Direccion= '"+direccion+"' OR Email= '"+email+"' OR Telefono= '"+telefono+"'"));
             conexion.setRs(conexion.getP().executeQuery());
             if(conexion.getRs().next()){
-                System.out.println("La Cooperativa ingresada ya existe\nPor favor ingrese una nueva Cooperativa");
-                MenuingresoCooperativa();
-            }
-
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Direccion= '"+direccion+"'"));
-            conexion.setRs(conexion.getP().executeQuery());
-            if(conexion.getRs().next()){
-                System.out.println("La direccion ingresada ya existe\nPor favor ingrese una nueva direccion");
-                MenuingresoCooperativa();
-            }
-
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Email= '"+email+"'"));
-            conexion.setRs(conexion.getP().executeQuery());
-            if(conexion.getRs().next()){
-                System.out.println("el email ingresado ya existe\nPor favor ingrese un nuevo correo");
-                MenuingresoCooperativa();
-            }
-
-            conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Telefono= '"+telefono+"'"));
-            conexion.setRs(conexion.getP().executeQuery());
-            if(conexion.getRs().next()){
-                System.out.println("el telefono ingresado ya existe\nPor favor ingrese un nuevo telefono");
+                System.out.println("Uno de los datos ingresados ya existen\nPor favor ingrese una nueva Cooperativa");
                 MenuingresoCooperativa();
             }
             
@@ -70,7 +48,19 @@ public class IngresoCoperativas {
 
         return true;
     }
-
+    public void MenuModificarCooperativa(){
+                    System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
+                    Integer id = escaner.ingreso().nextInt();
+                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
+                    String cnombre = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Direccion de la Cooperativa");
+                    String cdireccion = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Email de la Cooperativa");
+                    String cemail = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Telefono de la Cooperativa");
+                    String ctelefono = escaner.ingreso().next();
+                    modificarCooperativa(cnombre, cdireccion, cemail, ctelefono, id);
+    }
     public boolean modificarCooperativa(String nombre, String direccion, String email, String telefono, int id) {
 
         try {
@@ -88,14 +78,10 @@ public class IngresoCoperativas {
     }
     
     public void menueliminarCooperativa(){
-
-        do {
+            
             System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
-            String enombre = escaner.ingreso().next();
-            eliminarCooperativa(enombre);
-            System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
-            respuesta = escaner.ingreso().next().toUpperCase();
-        } while (respuesta.equals("SI"));
+            String nombre = escaner.ingreso().next();
+            eliminarCooperativa(nombre);
 
     }
 
@@ -116,7 +102,7 @@ public class IngresoCoperativas {
         }
         
         return true;
-        
+
     }
 
 }

@@ -168,5 +168,5 @@ public class Factura {
             CancelarCompra(u, a, b, f);
         }
     }
-
+    
 }
