@@ -66,7 +66,7 @@ public class gestionAsiento {
         return true;
     }
 
-    public boolean menuAsientoEscogido(int idRuta){
+    public boolean menuAsientoEscogido(int idRuta,Asiento as){
         Restricciones r=new Restricciones();
         Scanner coso=new Scanner(System.in);
         String num;
@@ -89,16 +89,16 @@ public class gestionAsiento {
             num=coso.next();
             if(!r.controlNumAsiento(num)){
                 System.out.println("Solo debe ingresar valores númericos");
-                return menuAsientoEscogido(idRuta);
+                return menuAsientoEscogido(idRuta, as);
             }
-            return asientoEscogido(idRuta, Integer.parseInt(num));
+            return asientoEscogido(idRuta, Integer.parseInt(num),as);
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
         }
         return false;
     }
 
-    public boolean asientoEscogido(int idRuta, int numAsiento){
+    public boolean asientoEscogido(int idRuta, int numAsiento,Asiento as){
         Connection co=c.getConexion();
         try {
             this.setInstrucciones("SELECT * FROM Asientos WHERE idRuta= '"+idRuta+"'"+"AND numAsiento= '"+numAsiento+"'");
@@ -107,7 +107,7 @@ public class gestionAsiento {
             if(this.rs.next()){
                 if(this.rs.getInt("ocupado")==1){
                     System.out.println("\nEl Asiento Seleccionado ya esta Ocupado\nPor favor ingrese un Asiento Disponible");
-                    return menuAsientoEscogido(idRuta);
+                    return menuAsientoEscogido(idRuta, as);
                 }
                 this.setInstrucciones("UPDATE Asientos SET ocupado=? WHERE idRuta= '"+idRuta+"'"+"AND numAsiento= '"+numAsiento+"'");
                     setP(co.prepareStatement(this.getInstrucciones()));  
@@ -119,7 +119,7 @@ public class gestionAsiento {
                     return true;
             }else{
                 System.out.println("El Asiento seleccionado no existe\nPor favor ingrese un valor valido");
-                return menuAsientoEscogido(idRuta);
+                return menuAsientoEscogido(idRuta, as);
             }
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");

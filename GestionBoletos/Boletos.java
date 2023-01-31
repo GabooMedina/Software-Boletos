@@ -6,7 +6,7 @@ public class Boletos {
     
     private String cooperativa, origen, destino,horario;
     private double precio;
-    private Date fecha;
+    private String fecha;
     
     public Boletos(){
         
@@ -37,11 +37,11 @@ public class Boletos {
         this.precio = precio;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

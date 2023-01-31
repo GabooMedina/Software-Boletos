@@ -1,13 +1,15 @@
 package GestionBoletos;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 
+import Asientos.Asiento;
 import Asientos.gestionAsiento;
 import BaseDatos.Conexion;
 import Factura.Factura;
+import GestionUsusarios.Usuario;
 import GestionUsusarios.gestionUsuarios;
 import Utilitarios.Ingresos;
 
@@ -16,11 +18,9 @@ public class CompraBoleto {
     gestionUsuarios g = new gestionUsuarios();
     Conexion c = new Conexion();
     Connection co = c.getConexion();
-    Factura f = new Factura();
-    Boletos b = new Boletos();
     gestionAsiento a = new gestionAsiento();
-    
-
+    Date fecha=new Date();
+    Calendar fe;
     public void impresionRutas() {
 
         try {
@@ -42,7 +42,7 @@ public class CompraBoleto {
         }
     }
 
-    public boolean compraTicket() {
+    public boolean compraTicket(Usuario u, Asiento as, Boletos b,Factura f) {
 
         try {
 
@@ -59,9 +59,9 @@ public class CompraBoleto {
                 b.setDestino(g.getRs().getString("Destino"));
                 b.setHorario(g.getRs().getString("Horario"));
                 b.setPrecio(g.getRs().getDouble("Precio"));
-                a.menuAsientoEscogido(g.getRs().getInt("Id_rutas"));
-
-                return f.ImpresionFactura();
+                b.setFecha(String.valueOf(fecha.getDate())+"/"+String.valueOf(fecha.getMonth()+1)+"/"+String.valueOf(fecha.getYear()+1900));
+                a.menuAsientoEscogido(g.getRs().getInt("Id_rutas"),as);
+                f.ImpresionFactura(u, as, b, f);
 
             }
 

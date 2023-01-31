@@ -6,22 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Asientos.Asiento;
 import BaseDatos.Conexion;
+import Factura.Factura;
+import GestionBoletos.Boletos;
+import Menus.Menus;
 import Utilitarios.Restricciones;
 public class gestionUsuarios {
-    Usuario usuario;
     Conexion c=new Conexion();
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
-    
-    
-    public Usuario getUsuario() {
-        return usuario;
-    }
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    Menus men=new Menus();
+
     public Conexion getC() {
         return c;
     }
@@ -152,15 +149,15 @@ public class gestionUsuarios {
         return false;
     }
 
-    public boolean MenuCambioContraseña(){
+    public void MenuCambioContraseña(Usuario u, Asiento a, Boletos b,Factura f){
         Scanner coso=new Scanner(System.in);
         String con;
         System.out.println("Ingrese la contraseña actual");
         con=coso.next();
-        return CambioContraseña(con);
+        CambioContraseña(con, u, a, b, f);
     }
 
-    public boolean CambioContraseña(String con){
+    public boolean CambioContraseña(String con,Usuario u, Asiento a, Boletos b,Factura f){
         Connection co=c.getConexion();
         try {
             this.setInstrucciones("SELECT * FROM Usuarios WHERE contraseña= '"+con+"'");
@@ -178,15 +175,16 @@ public class gestionUsuarios {
                     setP(co.prepareStatement(this.getInstrucciones()));  
                     this.getP().setString(1, con1);
                     this.getP().executeUpdate();
-                    return true;
+                    u.setContraseña(con1);
+                    men.MenuUsuario(u, a, b, f);
                 }else if(!con2.equals(con1)){
                     System.out.println("Las contraseñas deben coincidir");
-                    return CambioContraseña(con);
+                    return CambioContraseña(con, u, a, b, f);
                 }
             }
             else{
-                System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
-                return(MenuCambioContraseña());
+                System.out.println("La contraseña ingresada no coincide con la Actual\nPor favor vuelvalo a ingresar");
+                MenuCambioContraseña(u, a, b, f);
             }
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");

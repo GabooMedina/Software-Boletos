@@ -1,24 +1,62 @@
 package Factura;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
 
 import Asientos.Asiento;
+import BaseDatos.Conexion;
 import GestionBoletos.Boletos;
 import GestionUsusarios.Usuario;
+import Menus.Menus;
+import Utilitarios.Restricciones;
 
 public class Factura {
     int idUsuario;
     int id;
-    String coopertiva;
-    String origen;
-    String destino;
-    String horario;
-    Double precio;
+    String fecha;
     int asiento;
-    Date fecha;
-    Usuario user;
-    Boletos boleto;
-    Asiento asientos;
+
+    Menus men = new Menus();
+    Conexion c = new Conexion();
+    PreparedStatement p;
+    String instrucciones;
+    ResultSet rs;
+
+    public Conexion getC() {
+        return c;
+    }
+
+    public void setC(Conexion c) {
+        this.c = c;
+    }
+
+    public PreparedStatement getP() {
+        return p;
+    }
+
+    public void setP(PreparedStatement p) {
+        this.p = p;
+    }
+
+    public String getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(String instrucciones) {
+        this.instrucciones = instrucciones;
+    }
+
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
 
     public Factura() {
     }
@@ -27,97 +65,108 @@ public class Factura {
         return idUsuario;
     }
 
-
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-
 
     public int getId() {
         return id;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
 
-
-    public String getCoopertiva() {
-        return coopertiva;
+    public String getFecha() {
+        return fecha;
     }
 
-
-    public void setCoopertiva(String coopertiva) {
-        this.coopertiva = coopertiva;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
-
-
-    public String getOrigen() {
-        return origen;
-    }
-
-
-    public void setOrigen(String origen) {
-        this.origen = origen;
-    }
-
-
-    public String getDestino() {
-        return destino;
-    }
-
-
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
-
-
-    public String getHorario() {
-        return horario;
-    }
-
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
 
     public int getAsiento() {
         return asiento;
     }
 
-
     public void setAsiento(int asiento) {
         this.asiento = asiento;
     }
 
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public boolean ImpresionFactura(){
-        System.out.println(boleto.getCooperativa());//+"\t"+ boleto.getOrigen()+"\t"+boleto.getDestino()+"\t"+boleto.getHorario()+"\t"+boleto.getPrecio() );
-      //  System.out.println(asientos.getIdRuta()+"\t"+asientos.getNumAsiento());
+    public boolean ImpresionFactura(Usuario u, Asiento a, Boletos b, Factura f) {
+        Connection co = c.getConexion();
+        try {
+            this.setP(co.prepareStatement(
+                    "INSERT INTO RegistroCompra (idUsuario,Nombre,Apellido,Cooperativa,Origen,Destino,Horario,Precio,Asiento,Fecha) VALUES (?,?,?,?,?,?,?,?,?,?)"));
+            this.getP().setInt(1, u.getId());
+            this.getP().setString(2, u.getNombre());
+            this.getP().setString(3, u.getApellido());
+            this.getP().setString(4, b.getCooperativa());
+            this.getP().setString(5, b.getOrigen());
+            this.getP().setString(6, b.getDestino());
+            this.getP().setString(7, b.getHorario());
+            this.getP().setDouble(8, b.getPrecio());
+            this.getP().setInt(9, a.getNumAsiento());
+            this.getP().setString(10, b.getFecha());
+            this.getP().executeUpdate();
+            f.setIdUsuario(u.getId());
+            f.setAsiento(a.getNumAsiento());
+            f.setFecha(b.getFecha());
+            inscomp(u, a, b, f);
+        } catch (SQLException e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
+        }
         return false;
     }
+    public void inscomp(Usuario u, Asiento a, Boletos b, Factura f){
+        System.out.println(f.fecha);
 
+        Connection co = c.getConexion();
+        try {
+            this.setP(co.prepareStatement("SELECT * FROM RegistroCompra Where idUsuario= '" + f.idUsuario
+                    + "' AND Asiento= '" + f.asiento + "' AND Fecha= '" + f.fecha + "'"));
+            this.setRs(this.getP().executeQuery());
+            if (this.rs.next()) {
+                f.setId(this.rs.getInt("Id_compra"));
+                men.MenuUsuario(u, a, b, f);
+            }
+        } catch (SQLException e) {
+            System.out.println(" === ERROR DE INGRESO EN BD ===");
+            System.out.println(e);
+        }
+    }
 
-    
+    public void CancelarCompra(Usuario u, Asiento a, Boletos b, Factura f) {
+        Restricciones r = new Restricciones();
+        Scanner coso = new Scanner(System.in);
+        String op;
+        System.out.println("Desea eliminar la compra actual?");
+        System.out.println("1.- Si\n2.- No");
+        System.out.println("Seleccione una de las opciones");
+        op = coso.next();
+        if (r.controlNum(op)) {
+            if (op.equals("1")) {
+                Connection co = c.getConexion();
+                try {
+                    this.setP(co.prepareStatement("DELETE * FROM RegistroCompra Where idUsuario= '" + f.getIdUsuario()
+                            + "' AND Asiento= '" + f.getAsiento() + "' AND Fecha= '" + f.getFecha() + "'"));
+                    this.setRs(this.getP().executeQuery());
+                    men.MenuUsuario(u, a, b, f);
+                } catch (SQLException e) {
+                    System.out.println(" === ERROR DE INGRESO EN BD ===");
+                }
+            } else if (op.equals("2")) {
+                System.out.println("Saliendo de la opcion");
+                men.MenuUsuario(u, a, b, f);
+            } else {
+                System.out
+                        .println("El valor ingresado sobrepasa las opciones existentes\nPor favor vulva a ingresarlo");
+                CancelarCompra(u, a, b, f);
+            }
+        } else {
+            System.out.println("Debe ingresar un valor númerico\nPor favor vulva a ingresarlo");
+            CancelarCompra(u, a, b, f);
+        }
+    }
+
 }

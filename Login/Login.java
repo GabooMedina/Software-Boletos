@@ -8,18 +8,19 @@ import java.util.Scanner;
 
 import Asientos.Asiento;
 import BaseDatos.Conexion;
+import Factura.Factura;
 import GestionBoletos.Boletos;
 import GestionUsusarios.Usuario;
 import GestionUsusarios.gestionUsuarios;
 import Menus.Menus;
 import Utilitarios.Restricciones;
-import javafx.scene.control.Menu;
 
 public class Login {
   Usuario usu = new Usuario();
-  gestionUsuarios gesu;
+  gestionUsuarios gesu= new gestionUsuarios();
   Asiento asi=new Asiento();
   Boletos bol=new Boletos();
+  Factura fac=new Factura();
   Menus men=new Menus();
   Conexion c = new Conexion();
   PreparedStatement p;
@@ -61,17 +62,17 @@ public class Login {
   public boolean menuLogin() {
     Restricciones r = new Restricciones();
     Scanner coso = new Scanner(System.in);
-    String dato;
-    int da;
+    String num;
+    int dato;
     System.out.println("\t\tLogin");
     System.out.println("--------------------------------------");
-    System.out.println("1.- Sign in\n2.- Sign up\n3.- Recuperacion de Usuario\n4.- Recuperacion de Contraseña");
+    System.out.println("1.- Sign in\n2.- Sign up\n3.- Recuperacion de Usuario\n4.- Recuperacion de Contraseña\n5.- Salir");
     System.out.println("--------------------------------------");
     System.out.println("Seleccione una de las opciones");
-    dato = coso.next();
-    if (r.controlNum(dato)) {
-      da = Integer.parseInt(dato);
-      switch (da) {
+    num = coso.next();
+    if (r.controlNum(num)) {
+      dato = Integer.parseInt(num);
+      switch (dato) {
         case 1:
           menuSignIn();
           break;
@@ -84,13 +85,15 @@ public class Login {
         case 4:
           gesu.MenuRecuperacionContraseña();
           return menuLogin();
-
+        case 5:
+          System.out.println("Gracias por ocupar el programa\nAdios");
+          break;
         default:
           System.out
               .println("El dato ingresado no esta dentro del rango de opciones\n Por favor ingrese un valor válido");
           return menuLogin();
       }
-    } else if (!r.controlNum(dato)) {
+    } else if (!r.controlNum(num)) {
       System.out.println("El dato ingresado debe ser de tipo númerico\nPor favor ingrese la opcion nuevamente");
       return menuLogin();
     }
@@ -116,11 +119,11 @@ public class Login {
             if(this.rs.next()){
               usu.setId(this.rs.getInt("id"));
               usu.setNombre(this.rs.getString("nombre"));
-              usu.setNombre(this.rs.getString("apellido"));
+              usu.setApellido(this.rs.getString("apellido"));
               if(this.rs.getInt("admin")==1){
-                
+                men.MenuAdministrador();
               }else{
-                men.MenuUsuario(usu, asi, bol);
+                men.MenuUsuario(usu, asi, bol, fac);
               }
             }
             else{
