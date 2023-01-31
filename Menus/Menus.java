@@ -18,7 +18,7 @@ public class Menus {
     Ingresos escaner = new Ingresos();
     IngresoCoperativas i = new IngresoCoperativas();
     IngresoRutas rutas = new IngresoRutas();
-
+    Restricciones r = new Restricciones();
     String respuesta;
 
     public void MenuUsuario(Usuario u, Asiento a, Boletos b, Factura f) {
@@ -79,40 +79,57 @@ public class Menus {
             case 1:
                 i.MenuingresoCooperativa();
                 MenuAdministrador();
-
+                do{
+                    System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if(!r.controlSI(respuesta)){
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    }else if(respuesta.equals("SI")){
+                        i.MenuingresoCooperativa();
+                        MenuAdministrador();
+                    }else if(respuesta.equals("NO")){
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                }while(!r.controlSI(respuesta));
                 break;
 
             case 2:
-                do {
-                    rutas.cooperativasId();
-                    System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
-                    Integer id = escaner.ingreso().nextInt();
-                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
-                    String cnombre = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Direccion de la Cooperativa");
-                    String cdireccion = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Email de la Cooperativa");
-                    String cemail = escaner.ingreso().next();
-                    System.out.println("Ingrese el Cambio de Telefono de la Cooperativa");
-                    String ctelefono = escaner.ingreso().next();
-                    i.modificarCooperativa(cnombre, cdireccion, cemail, ctelefono, id);
-                    System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
+                rutas.cooperativasId();
+                i.MenuModificarCooperativa();
+                do{
+                    System.out.println("Desea Modificar mas Cooperativas? [Si/No]");
                     respuesta = escaner.ingreso().next().toUpperCase();
-                } while (respuesta.equals("SI"));
-                MenuAdministrador();
+                    if(!r.controlSI(respuesta)){
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    }else if(respuesta.equals("SI")){
+                        rutas.cooperativasId();
+                        i.MenuModificarCooperativa();
+                    }else if(respuesta.equals("NO")){
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                }while(!r.controlSI(respuesta));
 
                 break;
 
             case 3:
-
-                do {
-                    System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
-                    String enombre = escaner.ingreso().next();
-                    i.eliminarCooperativa(enombre);
-                    System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
-                    respuesta = escaner.ingreso().next().toUpperCase();
-                } while (respuesta.equals("SI"));
-
+                    rutas.cooperativasId();
+                    i.menueliminarCooperativa();
+                    do{
+                        System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
+                        respuesta = escaner.ingreso().next().toUpperCase();
+                        if(!r.controlSI(respuesta)){
+                            System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                        }else if(respuesta.equals("SI")){
+                            rutas.cooperativasId();
+                            i.menueliminarCooperativa();;
+                        }else if(respuesta.equals("NO")){
+                            System.out.println("Saliendo de la opción");
+                            MenuAdministrador();
+                        }
+                    }while(!r.controlSI(respuesta));
+                
             case 4:
 
                 do {

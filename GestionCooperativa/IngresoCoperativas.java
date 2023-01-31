@@ -13,7 +13,6 @@ public class IngresoCoperativas {
     Restricciones r = new Restricciones();
 
     public void MenuingresoCooperativa(){
-        do {
             System.out.println("Ingrese el Nombre de la Cooperativa");
             String nombre = escaner.ingreso().next();
             System.out.println("Ingrese la Direccion de la Cooperativa");
@@ -23,9 +22,7 @@ public class IngresoCoperativas {
             System.out.println("Ingrese el Telefono de la Cooperativa");
             String telefono = escaner.ingreso().next();
             ingresoCooperativa(nombre, direccion, email, telefono);
-            System.out.println("Desea Ingresar mas Cooperativas? [Si/No]");
-            respuesta = escaner.ingreso().next().toUpperCase();
-        } while (respuesta.equals("SI"));
+            
     } 
 
     public boolean ingresoCooperativa(String nombre, String direccion, String email, String telefono) {
@@ -51,7 +48,19 @@ public class IngresoCoperativas {
 
         return true;
     }
-
+    public void MenuModificarCooperativa(){
+                    System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
+                    Integer id = escaner.ingreso().nextInt();
+                    System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
+                    String cnombre = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Direccion de la Cooperativa");
+                    String cdireccion = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Email de la Cooperativa");
+                    String cemail = escaner.ingreso().next();
+                    System.out.println("Ingrese el Cambio de Telefono de la Cooperativa");
+                    String ctelefono = escaner.ingreso().next();
+                    modificarCooperativa(cnombre, cdireccion, cemail, ctelefono, id);
+    }
     public boolean modificarCooperativa(String nombre, String direccion, String email, String telefono, int id) {
 
         try {
@@ -69,14 +78,10 @@ public class IngresoCoperativas {
     }
     
     public void menueliminarCooperativa(){
-
-        do {
+            
             System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
-            String enombre = escaner.ingreso().next();
-            eliminarCooperativa(enombre);
-            System.out.println("Desea Eliminar mas Cooperativas? [Si/No]");
-            respuesta = escaner.ingreso().next().toUpperCase();
-        } while (respuesta.equals("SI"));
+            String nombre = escaner.ingreso().next();
+            eliminarCooperativa(nombre);
 
     }
 
