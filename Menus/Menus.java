@@ -6,13 +6,17 @@ import Asientos.Asiento;
 import Factura.Factura;
 import GestionBoletos.Boletos;
 import GestionBoletos.CompraBoleto;
+import GestionCooperativa.IngresoCoperativas;
+import GestionRutas.IngresoRutas;
 import GestionUsusarios.Usuario;
 import GestionUsusarios.gestionUsuarios;
+import Utilitarios.Ingresos;
 import Utilitarios.Restricciones;
 
 public class Menus {
-    String respuesta;
 
+
+    String respuesta;
     public void MenuUsuario(Usuario u, Asiento a, Boletos b,Factura f) {
         Restricciones r = new Restricciones();
         Scanner coso = new Scanner(System.in);
@@ -198,7 +202,6 @@ public class Menus {
             default:
                 System.out.println("==== ERROR OPCION NO VALIDA ..|..===");
 
-                break;
         }
 
     }
