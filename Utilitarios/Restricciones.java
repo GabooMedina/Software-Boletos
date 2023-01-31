@@ -46,4 +46,6 @@ public class Restricciones {
         Matcher matcher =patter.matcher(cadena);
         return matcher.matches();
     }
+
+    
 }

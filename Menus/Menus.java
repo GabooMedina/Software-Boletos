@@ -2,7 +2,7 @@ package Menus;
 
 public class Menus {
     
-    public static MenuUsuario(Usuarios u, Asiento,)
+    public static MenuUsuario(Usuarios u, Asiento,);
 }
 
     public void MenuAdministrador() {

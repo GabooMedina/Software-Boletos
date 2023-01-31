@@ -15,6 +15,7 @@ public class gestionUsuarios {
     PreparedStatement p;
     String instrucciones;
     ResultSet rs;
+    Restricciones r = new Restricciones();
 
     public Usuario getUsuario() {
         return usuario;
@@ -57,7 +58,6 @@ public class gestionUsuarios {
     }
 
     public boolean MenuCreacionUsuario() {
-        Restricciones r = new Restricciones();
         Scanner coso = new Scanner(System.in);
         String cor, nom, ape, nomU, cont;
         do {
@@ -119,8 +119,13 @@ public class gestionUsuarios {
     public boolean MenuRecuperacionUsuario() {
         Scanner coso = new Scanner(System.in);
         String corr;
-        System.out.println("Ingrese su correo");
-        corr = coso.next();
+        do {
+            System.out.println("Ingrese su Correo");
+            corr = coso.next();
+            if (!r.controlCorreo(corr)) {
+                System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
+            }
+        } while (!r.controlCorreo(corr));
         return RecuperacionUsuario(corr);
     }
 
@@ -147,8 +152,13 @@ public class gestionUsuarios {
     public boolean MenuRecuperacionContraseña() {
         Scanner coso = new Scanner(System.in);
         String corr;
-        System.out.println("Ingrese su correo");
-        corr = coso.next();
+        do {
+            System.out.println("Ingrese su Correo");
+            corr = coso.next();
+            if (!r.controlCorreo(corr)) {
+                System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
+            }
+        } while (!r.controlCorreo(corr));
         return RecuperacionContraseña(corr);
     }
 
