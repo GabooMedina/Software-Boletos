@@ -78,7 +78,7 @@ public class IngresoCoperativas {
     }
     
     public void menueliminarCooperativa(){
-            
+
             System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
             String nombre = escaner.ingreso().next();
             eliminarCooperativa(nombre);
@@ -100,7 +100,6 @@ public class IngresoCoperativas {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
             System.out.println(e.getMessage());
         }
-        
         return true;
 
     }
