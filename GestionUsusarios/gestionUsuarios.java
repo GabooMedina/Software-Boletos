@@ -104,6 +104,7 @@ public class gestionUsuarios {
             this.getP().setString(5, cont);
             this.getP().setBoolean(6, false);
             this.getP().executeUpdate();
+            co.close();
             return true;
         } catch (SQLException e) {
             System.out.println(" === ERROR DE INGRESO EN BD ===");
@@ -136,6 +137,7 @@ public class gestionUsuarios {
                 return true;
             } else {
                 System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
+                co.close();
                 return (MenuRecuperacionUsuario());
             }
 
@@ -170,6 +172,7 @@ public class gestionUsuarios {
                 return true;
             } else {
                 System.out.println("El correo ingresado no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
+                co.close();
                 return (MenuRecuperacionContraseña());
             }
 
@@ -215,6 +218,7 @@ public class gestionUsuarios {
                 } else if (!con2.equals(con1)) {
 
                     System.out.println("Las contraseñas deben coincidir");
+                    co.close();
                     return CambioContraseña(con, u, a, b, f);
                 }
 
