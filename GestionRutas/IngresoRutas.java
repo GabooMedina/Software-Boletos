@@ -1,7 +1,6 @@
 package GestionRutas;
 
 import BaseDatos.Conexion;
-import GestionCooperativa.Cooperativa;
 import Utilitarios.Ingresos;
 import Utilitarios.Restricciones;
 
@@ -53,7 +52,6 @@ public class IngresoRutas {
 
     public void MenucrearRuta() {
         Ingresos escaner = new Ingresos();
-        Cooperativa cop = new Cooperativa();
         Restricciones r = new Restricciones();
         cooperativasId();
         Connection c = conexion.getConexion();

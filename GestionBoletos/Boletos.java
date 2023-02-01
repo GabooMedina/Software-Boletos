@@ -1,7 +1,5 @@
 package GestionBoletos;
 
-import java.sql.Date;
-
 public class Boletos {
     
     private String cooperativa, origen, destino,horario;

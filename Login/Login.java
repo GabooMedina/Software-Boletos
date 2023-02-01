@@ -17,7 +17,6 @@ import Utilitarios.Restricciones;
 
 public class Login {
   Usuario usu = new Usuario();
-  gestionUsuarios gesu;
   Asiento asi = new Asiento();
   Boletos bol = new Boletos();
   Factura fac = new Factura();
@@ -64,6 +63,7 @@ public class Login {
     Scanner coso = new Scanner(System.in);
     String num;
     int dato;
+    gestionUsuarios gesu=new gestionUsuarios();
     System.out.println("\t\tLogin");
     System.out.println("--------------------------------------");
     System.out

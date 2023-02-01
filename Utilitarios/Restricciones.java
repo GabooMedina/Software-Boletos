@@ -10,7 +10,7 @@ public class Restricciones {
     String numTelefono = "^[0][9][0-9]{8}$";
     String numeroAsiento = "[0-9]*";
     String numero = "[0-9]*";
-    String Si = "[SI|NO]";
+    String Si = "[SI|NO]*";
 
     public boolean controlCorreo(String cadena) {
         Pattern patter = Pattern.compile(correo);

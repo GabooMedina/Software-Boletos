@@ -48,15 +48,29 @@ public class IngresoCoperativas {
     }
 
     public void MenuingresoCooperativa() {
+        Restricciones r = new Restricciones();
         Ingresos escaner = new Ingresos();
+        String email;
+        String telefono;
         System.out.println("Ingrese el Nombre de la Cooperativa");
         String nombre = escaner.ingreso().next();
         System.out.println("Ingrese la Direccion de la Cooperativa");
         String direccion = escaner.ingreso().next();
-        System.out.println("Ingrese el Email de la Cooperativa");
-        String email = escaner.ingreso().next();
-        System.out.println("Ingrese el Telefono de la Cooperativa");
-        String telefono = escaner.ingreso().next();
+        do {
+            System.out.println("Ingrese el Email de la Cooperativa");
+            email = escaner.ingreso().next();
+            if (!r.controlCorreo(email)) {
+                System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
+            }
+        } while (r.controlCorreo(email));
+        do {
+            System.out.println("Ingrese el Telefono de la Cooperativa");
+            telefono = escaner.ingreso().next();
+            if (!r.controlNumeroTelefono(telefono)) {
+                System.out.println("Por favor ingrese un número de telefono válido\nEjemplo: 0987654321");
+            }
+        } while (!r.controlNumeroTelefono(telefono));
+
         ingresoCooperativa(nombre, direccion, email, telefono);
 
     }
@@ -89,20 +103,39 @@ public class IngresoCoperativas {
     }
 
     public void MenuModificarCooperativa() {
+        Restricciones r = new Restricciones();
         Ingresos escaner = new Ingresos();
         IngresoRutas rutas = new IngresoRutas();
+        String id;
+        String cemail;
+        String ctelefono;
         rutas.cooperativasId();
-        System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
-        Integer id = escaner.ingreso().nextInt();
+        do {
+            System.out.println("Ingrese el Id de la Cooperativa a Cambiar");
+            id = escaner.ingreso().next();
+            if (!r.controlNum(id)) {
+                System.out.println("Solo se Aceptan valores númericos\nPor favor vuelvalo a ingresar");
+            }
+        } while (!r.controlNum(id));
         System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
         String cnombre = escaner.ingreso().next();
         System.out.println("Ingrese el Cambio de Direccion de la Cooperativa");
         String cdireccion = escaner.ingreso().next();
-        System.out.println("Ingrese el Cambio de Email de la Cooperativa");
-        String cemail = escaner.ingreso().next();
-        System.out.println("Ingrese el Cambio de Telefono de la Cooperativa");
-        String ctelefono = escaner.ingreso().next();
-        modificarCooperativa(cnombre, cdireccion, cemail, ctelefono, id);
+        do {
+            System.out.println("Ingrese el Cambio de Email de la Cooperativa");
+            cemail = escaner.ingreso().next();
+            if (!r.controlCorreo(cemail)) {
+                System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
+            }
+        } while (!r.controlCorreo(cemail));
+        do {
+            System.out.println("Ingrese el Cambio de Telefono de la Cooperativa");
+            ctelefono = escaner.ingreso().next();
+            if (!r.controlNumeroTelefono(ctelefono)) {
+                System.out.println("Por favor ingrese un número de telefono válido\nEjemplo: 0987654321");
+            }
+        } while (!r.controlNumeroTelefono(ctelefono));
+        modificarCooperativa(cnombre, cdireccion, cemail, ctelefono, Integer.parseInt(id));
     }
 
     public boolean modificarCooperativa(String nombre, String direccion, String email, String telefono, int id) {
@@ -124,7 +157,6 @@ public class IngresoCoperativas {
 
     public void menueliminarCooperativa() {
         Ingresos escaner = new Ingresos();
-        Restricciones r = new Restricciones();
         IngresoRutas rutas = new IngresoRutas();
         rutas.cooperativasId();
         System.out.println("Ingrese el Nombre de la Cooperativa a Eliminar");
