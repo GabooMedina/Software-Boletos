@@ -113,6 +113,9 @@ public class Login {
 
   public boolean signIn(String nomU, String contr) {
     Connection co = c.getConexion();
+    Restricciones r = new Restricciones();
+    String res=new String();
+    Scanner coso = new Scanner(System.in);
     try {
       this.setInstrucciones(
           "SELECT * FROM Usuarios WHERE nombreUsuario = '" + nomU + "' AND contraseña= '" + contr + "'");
@@ -130,9 +133,22 @@ public class Login {
           men.MenuUsuario(usu, asi, bol, fac);
         }
       } else {
-        System.out
-            .println("El nombre de Usuario o la Contraseña esta mal ingresado\nPor favor ingreselos correctamente");
-        return menuSignIn();
+        do {
+          System.out.println("El nombre de Usuario o la Contraseña esta mal ingresado\nPor favor ingreselos correctamente");
+        System.out.println("\nSi usted no tiene ningun correo creado ingrese Si para volver al menu principal\nDe lo contrario ingrese No para volver a intentar");
+        res=coso.next().toUpperCase();
+        if(r.controlSI(res)){
+          if(res.equals("SI")){
+            menuLogin();
+          }else if(res.equals("NO")){
+            menuSignIn();
+          }
+        }else{
+          System.out.println("Opcion mal ingresda\nPorfavor vuelvalo a intentar");
+        }
+        } while (!r.controlSI(res));
+        
+
       }
     } catch (SQLException e) {
       System.out.println(" === ERROR DE INGRESO EN BD ===");

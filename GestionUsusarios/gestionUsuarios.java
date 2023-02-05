@@ -120,9 +120,16 @@ public class gestionUsuarios {
         do {
             System.out.println("Ingrese su Correo");
             corr = coso.next();
+            if(r.controlNO(corr)){
+                return true;
+            }
             if (!r.controlCorreo(corr)) {
                 System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
+                System.out.println("\nSi no tienen ningun Usuario creado, ingrese No para salir al menu principal");
+                System.out.println("Caso contrario solo vuelva a ingresar un correo valido ");
+                return (MenuRecuperacionUsuario());
             }
+            
         } while (!r.controlCorreo(corr));
         return RecuperacionUsuario(corr);
     }
@@ -139,7 +146,6 @@ public class gestionUsuarios {
             } else {
                 System.out.println("El correo ingresado o no existe o esta mal tipeado\nPor favor vuelvalo a ingresar");
                 co.close();
-                return (MenuRecuperacionUsuario());
             }
 
         } catch (SQLException e) {
@@ -156,8 +162,14 @@ public class gestionUsuarios {
         do {
             System.out.println("Ingrese su Correo");
             corr = coso.next();
+            if(r.controlNO(corr)){
+                return true;
+            }
             if (!r.controlCorreo(corr)) {
                 System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
+                System.out.println("\nSi no tienen ningun Usuario creado, ingrese No para salir al menu principal");
+                System.out.println("Caso contrario solo vuelva a ingresar un correo valido ");
+                return (MenuRecuperacionUsuario());
             }
         } while (!r.controlCorreo(corr));
         return RecuperacionContraseña(corr);

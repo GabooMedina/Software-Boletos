@@ -11,6 +11,7 @@ public class Restricciones {
     String numeroAsiento = "[0-9]*";
     String numero = "[0-9]*";
     String Si = "[SI|NO]*";
+    String No= "[no|NO|No|nO]*";
 
     public boolean controlCorreo(String cadena) {
         Pattern patter = Pattern.compile(correo);
@@ -54,4 +55,9 @@ public class Restricciones {
         return matcher.matches();
     }
 
+    public boolean controlNO(String cadena) {
+        Pattern patter = Pattern.compile(No);
+        Matcher matcher = patter.matcher(cadena);
+        return matcher.matches();
+    }
 }
