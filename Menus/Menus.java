@@ -30,7 +30,7 @@ public class Menus {
         Scanner coso = new Scanner(System.in);
         String num;
         int dato;
-        System.out.println("\t\tLogin");
+        System.out.println("\n===== SOFTWARE TERMINAL TERRESTRE AMBATO =====");
         System.out.println("--------------------------------------");
         System.out.println(
                 "1.- Comprar Boleto\n2.- Cancelar compra\n3.- Cambiar contraseña\n4.- Mostrar Historial de Compras\n5.- Salir");
@@ -59,6 +59,7 @@ public class Menus {
                 case 5:
                     System.out.println("Gracias por ocupar el programa\nAdios");
                     break;
+
                 default:
                     System.out
                             .println(
@@ -73,7 +74,7 @@ public class Menus {
 
     public void MenuAdministrador() {
 
-        System.out.println("===== SOFTWARE TERMINAL TERRESTRE AMBATO ===== \n" +
+        System.out.println("\n===== SOFTWARE TERMINAL TERRESTRE AMBATO ===== \n" +
                 "\n === MENU DE OPCIONES ADMINISTRADOR ===\n" +
                 "1.- Crear Cooperativa\n" +
                 "2.- Modificar Cooperativa\n" +

@@ -229,9 +229,6 @@ public class gestionUsuarios {
                     men.MenuUsuario(u, a, b, f);
                 } else if (!con2.equals(con1)) {
 
-                    return true;
-                } else if (!con2.equals(con1)) {
-
                     System.out.println("Las contraseñas deben coincidir");
                     co.close();
                     return CambioContraseña(con, u, a, b, f);
