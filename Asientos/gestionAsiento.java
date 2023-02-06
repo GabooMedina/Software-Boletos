@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import BaseDatos.Conexion;
-import GestionBoletos.CompraBoleto;
 import Utilitarios.Ingresos;
 import Utilitarios.Restricciones;
 

@@ -12,6 +12,7 @@ import BaseDatos.Conexion;
 import Factura.Factura;
 import GestionUsusarios.Usuario;
 import Utilitarios.Ingresos;
+import Utilitarios.Restricciones;
 
 public class CompraBoleto {
     Date fecha = new Date();
@@ -75,13 +76,20 @@ public class CompraBoleto {
     }
 
     public boolean compraTicket(Usuario u, Asiento as, Boletos b, Factura f) {
+        Restricciones r=new Restricciones();
         Ingresos i = new Ingresos();
         gestionAsiento a = new gestionAsiento();
         Connection co = conexion.getConexion();
+        String frecuencia;
         try {
-            impresionRutas();
-            System.out.print("Ingrese el Id de la Frecuencia en la que Desee Viajar: ");
-            Integer frecuencia = i.ingreso().nextInt();
+            do {
+                impresionRutas();
+                System.out.print("Ingrese el Id de la Frecuencia en la que Desee Viajar: ");
+                frecuencia = i.ingreso().next(); 
+                if(!r.controlNum(frecuencia)){
+                    System.out.println("Solo se permiten valores numericos");
+                }
+            } while (!r.controlNum(frecuencia));
 
             this.setInstrucciones("SELECT * FROM Rutas WHERE Id_Rutas = '" + frecuencia + "'");
             this.setP(co.prepareStatement(this.getInstrucciones()));
@@ -102,7 +110,9 @@ public class CompraBoleto {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("Valor fuera de rango");
+            System.out.println("Ingrese un valor dentro del rango de opciones");
+            compraTicket(u, as, b, f);
         }
 
         return false;

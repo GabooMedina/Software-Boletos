@@ -42,15 +42,19 @@ public class Menus {
             switch (dato) {
                 case 1:
                     boleto.compraTicket(u, a, b, f);
+                    MenuUsuario(u, a, b, f);
                     break;
                 case 2:
                     f.CancelarCompra(u, a, b, f);
+                    MenuUsuario(u, a, b, f);
                     break;
                 case 3:
                     cont.MenuCambioContraseña(u, a, b, f);
+                    MenuUsuario(u, a, b, f);
                     break;
                 case 4:
                     f.imprimirHistorialCompras(u, a, b, f);
+                    MenuUsuario(u, a, b, f);
                     break;
                 case 5:
                     System.out.println("Gracias por ocupar el programa\nAdios");
