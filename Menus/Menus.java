@@ -3,6 +3,7 @@ package Menus;
 import java.util.Scanner;
 
 import Asientos.Asiento;
+import Asientos.gestionAsiento;
 import Factura.Factura;
 import GestionBoletos.Boletos;
 import GestionBoletos.CompraBoleto;
@@ -21,6 +22,7 @@ public class Menus {
     Restricciones r = new Restricciones();
     CompraBoleto boleto = new CompraBoleto();
     gestionUsuarios cont = new gestionUsuarios();
+    gestionAsiento asi=new gestionAsiento();
     String respuesta;
 
     public void MenuUsuario(Usuario u, Asiento a, Boletos b, Factura f) {
@@ -180,8 +182,25 @@ public class Menus {
 
                 break;
 
+            case 7:
+                asi.menuReseteoAsientos();
+                do {
+                    System.out.println("Desea Resetar los asientos de otra Ruta? [Si/No]");
+                    respuesta = escaner.ingreso().next().toUpperCase();
+                    if (!r.controlSI(respuesta)) {
+                        System.out.println("Solo debe ingresar SI/NO\nPor favor ingrese un valor válido");
+                    } else if (respuesta.equals("SI")) {
+                        rutas.menuModificarRuta();
+                    } else if (respuesta.equals("NO")) {
+                        System.out.println("Saliendo de la opción");
+                        MenuAdministrador();
+                    }
+                } while (!r.controlSI(respuesta));
+            break;
+
             default:
                 System.out.println("==== ERROR OPCION NO VALIDA ..|..===");
+                MenuAdministrador();
 
         }
 

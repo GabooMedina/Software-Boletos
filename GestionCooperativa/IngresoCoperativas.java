@@ -62,7 +62,7 @@ public class IngresoCoperativas {
             if (!r.controlCorreo(email)) {
                 System.out.println("Por favor ingrese un correo válido\nEjemplo: example@domain.com");
             }
-        } while (r.controlCorreo(email));
+        } while (!r.controlCorreo(email));
         do {
             System.out.println("Ingrese el Telefono de la Cooperativa");
             telefono = escaner.ingreso().next();

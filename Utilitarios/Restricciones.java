@@ -12,6 +12,7 @@ public class Restricciones {
     String numero = "[0-9]*";
     String Si = "[SI|NO]*";
     String No= "[no|NO|No|nO]*";
+    String Hora="[0-9]{2}:[0-9]{2}";
 
     public boolean controlCorreo(String cadena) {
         Pattern patter = Pattern.compile(correo);
@@ -59,5 +60,15 @@ public class Restricciones {
         Pattern patter = Pattern.compile(No);
         Matcher matcher = patter.matcher(cadena);
         return matcher.matches();
+    }
+
+    public boolean controlHora(String cadena) {
+        Pattern patter = Pattern.compile(Hora);
+        Matcher matcher = patter.matcher(cadena);
+        return matcher.matches();
+    }
+
+    public boolean validarNúmeroDecimal(String cadena) {
+        return numero.matches("^[0-9]+(,[0-9]+)?$");
     }
 }

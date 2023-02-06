@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import BaseDatos.Conexion;
+import GestionBoletos.CompraBoleto;
 import Utilitarios.Ingresos;
 import Utilitarios.Restricciones;
 
@@ -135,8 +136,8 @@ public class gestionAsiento {
         return false;
     }
 
-    public boolean limpiarAsientos(int idRuta) {
-
+    public boolean limpiarAsientos(String idRuta) {
+        
         Connection co = c.getConexion();
         try {
             this.setInstrucciones("SELECT * FROM Asientos WHERE idRuta= '" + idRuta + "'");
@@ -151,18 +152,28 @@ public class gestionAsiento {
                 return true;
             }
         } catch (SQLException e) {
-
+            System.out.println("La opcion escogida no se encuentra dentro de las opciones Valida");
+            System.out.println("Por favor ingrese una opcion valida");
+            menuReseteoAsientos();
         }
         return false;
     }
 
-    public boolean menuReseteoAsientos() {
+    public void menuReseteoAsientos() {
+        Restricciones r = new Restricciones();
         Ingresos escaner = new Ingresos();
-
-        System.out.println("Ingrese el Id de la Ruta para limpiar los asientos : ");
-        Integer id = escaner.ingreso().nextInt();
-
-        return limpiarAsientos(id);
+        String id;
+        do {
+            impresionRutasadmin();
+            System.out.println("Ingrese el Id de la Ruta para limpiar los asientos : ");
+            id = escaner.ingreso().next();
+            if(!r.controlNum(id)){
+                System.out.println("La opcion Ingresada debe de ser de tipo numerico");
+                System.out.println("Porfavor ingrese una opcion valida");
+            }
+        } while (!r.controlNum(id));
+        limpiarAsientos(id);
+        
     }
 
     public void impresionRutasadmin() {

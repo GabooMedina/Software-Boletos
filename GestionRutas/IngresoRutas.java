@@ -53,13 +53,15 @@ public class IngresoRutas {
     public void MenucrearRuta() {
         Ingresos escaner = new Ingresos();
         Restricciones r = new Restricciones();
+        String horario;
+        String precio;
         cooperativasId();
         Connection c = conexion.getConexion();
         System.out.println("Ingrese el id de la Cooperativa a la que quiere asociar la nueva ruta");
         String id = escaner.ingreso().next();
         if (r.controlNum(id)) {
             try {
-                conexion.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Id" + id + "'"));
+                conexion.setP(c.prepareStatement("SELECT * FROM Cooperativas WHERE Id= '" + id + "'"));
                 conexion.setRs(conexion.getP().executeQuery());
                 if (conexion.getRs().next()) {
                     String nombre = conexion.getRs().getString("Nombre");
@@ -67,19 +69,31 @@ public class IngresoRutas {
                     String origen = escaner.ingreso().next();
                     System.out.println("Ingrese el Destino para la Nueva Ruta");
                     String destino = escaner.ingreso().next();
-                    System.out.println("Ingrese el Horario para la Nueva Ruta");
-                    String horario = escaner.ingreso().next();
-                    System.out.println("Ingrese el Precio para la Nueva Ruta");
-                    Double precio = escaner.ingreso().nextDouble();
-                    c.close();
-                    ingresoRuta(Integer.parseInt(id), nombre, origen, destino, horario, precio);
-                } else {
-                    System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
+                    do {
+                        System.out.println("Ingrese el Horario para la Nueva Ruta");
+                        horario = escaner.ingreso().next();
+                        if (!r.controlHora(horario)) {
+                            System.out.println("Ingrese un horario valido");
+                            System.out.println("Ejemplo: 09:12");
+                        }
+                    } while (!r.controlHora(horario));
+                    do {
+                        System.out.println("Ingrese el Precio para la Nueva Ruta");
+                        precio = escaner.ingreso().next();
+                        if(!r.validarNúmeroDecimal(precio)){
+                            System.out.println("Ingrese un valor valido");
+                            System.out.println("Ejemplo: 12,5");
+                        }
+                    } while (!r.validarNúmeroDecimal(precio));
 
-                    MenucrearRuta();
+                    c.close();
+                    ingresoRuta(Integer.parseInt(id), nombre, origen, destino, horario, Double.parseDouble(precio));
                 }
+
             } catch (SQLException e) {
-                System.out.println(" === ERROR DE INGRESO EN BD ===");
+                System.out.println(e);
+                System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
+                MenucrearRuta();
             }
         } else {
             System.out.println("Solo se pueden ingresar valores númericos\nPor favor vuelva a ingresarlos");
@@ -147,31 +161,49 @@ public class IngresoRutas {
 
     // Colocar controles en esta
     public boolean menuModificarRuta() {
+        Restricciones r = new Restricciones();
         Ingresos escaner = new Ingresos();
+        String precio;
+        String horario;
         cooperativasId();
         System.out.println("Ingrese el Id de la Ruta a Cambiar");
-        Integer id_Ruta = escaner.ingreso().nextInt();
-        System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
-        String cambioNombre = escaner.ingreso().next();
-        System.out.println("Ingrese el Cambio de Origen de la Ruta");
-        String cambioOrigen = escaner.ingreso().next();
-        System.out.println("Ingrese el Cambio de Destino de la Ruta");
-        String cambioDestino = escaner.ingreso().next();
-        System.out.println("Ingrese el Horario de la Ruta a Modificar");
-        String horario = escaner.ingreso().next();
-        return modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, id_Ruta);
-
+        String id_Ruta = escaner.ingreso().next();
+        if(r.controlNum(id_Ruta)){
+            System.out.println("Ingrese el Cambio de Nombre de la Cooperativa");
+            String cambioNombre = escaner.ingreso().next();
+            System.out.println("Ingrese el Cambio de Origen de la Ruta");
+            String cambioOrigen = escaner.ingreso().next();
+            System.out.println("Ingrese el Cambio de Destino de la Ruta");
+            String cambioDestino = escaner.ingreso().next();
+            do {
+                System.out.println("Ingrese el Horario de la Ruta a Modificar");
+            horario = escaner.ingreso().next();
+            } while (!r.controlHora(horario));
+            do {
+                System.out.println("Ingrese el Precio de la Ruta a Modificar");
+                precio=escaner.ingreso().next();
+                if(!r.validarNúmeroDecimal(precio)){
+                    System.out.println("Ingrese un valor valido");
+                    System.out.println("Ejemplo: 12,5");
+                }
+            } while (!r.validarNúmeroDecimal(precio));
+            return modificarRuta(cambioNombre, cambioOrigen, cambioDestino, horario, precio,id_Ruta);
+        }else{
+            System.out.println("El valor ingresado debe ser numerico\nPor favor ingrese un valor valido");
+            return menuModificarRuta();
+        }
     }
 
-    public boolean modificarRuta(String nombre, String origen, String destino, String horario, int id) {
+    public boolean modificarRuta(String nombre, String origen, String destino, String horario, String precio,String id) {
         Connection c = conexion.getConexion();
         try {
             conexion.setP(c.prepareStatement(
-                    "UPDATE Rutas SET Cooperativa = ? , Origen = ? , Destino = ?, Horario = ? WHERE Id_Rutas = " + id));
+                    "UPDATE Rutas SET Cooperativa = ? , Origen = ? , Destino = ?, Horario = ?, Precio= ? WHERE Id_Rutas = " + id));
             conexion.getP().setString(1, nombre);
             conexion.getP().setString(2, origen);
             conexion.getP().setString(3, destino);
             conexion.getP().setString(4, horario);
+            conexion.getP().setString(5, precio);
             conexion.getP().executeUpdate();
             c.close();
         } catch (SQLException e) {
@@ -212,13 +244,11 @@ public class IngresoRutas {
                     System.out.println(e.getMessage());
 
                 }
-            } else {
-                System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
-                MenudeleteRuta();
-            }
+            } 
 
         } catch (SQLException e) {
-            System.out.println(" === ERROR DE INGRESO EN BD ===");
+            System.out.println("El valor ingresado no concuerda con los id's\nPorfavor vuelvalo a ingresar");
+            MenudeleteRuta();
         }
 
         return true;
