@@ -82,7 +82,8 @@ public class Menus {
                 "4.- Crear Ruta\n" +
                 "5.- Modificar Ruta\n" +
                 "6.- Eliminar Ruta\n" +
-                "7.- Reseteo Asientos");
+                "7.- Reseteo Asientos\n" +
+                "8.- Salir");
         int opcion = escaner.ingreso().nextInt();
 
         switch (opcion) {
@@ -202,7 +203,10 @@ public class Menus {
                     }
                 } while (!r.controlSI(respuesta));
             break;
-
+            
+            case 8:
+                System.out.println("Saliendo de la App\nGracias por ocupar el programa");
+            break;
             default:
                 System.out.println("==== ERROR OPCION NO VALIDA ..|..===");
                 MenuAdministrador();

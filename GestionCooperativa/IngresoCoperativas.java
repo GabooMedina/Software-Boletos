@@ -80,8 +80,7 @@ public class IngresoCoperativas {
         Connection c = conexion.getConexion();
         try {
 
-            this.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '" + nombre + "' OR Direccion= '"
-                    + direccion + "' OR Email= '" + email + "' OR Telefono= '" + telefono + "'"));
+            this.setP(c.prepareStatement("SELECT *FROM Cooperativas WHERE Nombre= '" + nombre + "' OR Email= '" + email + "' OR Telefono= '" + telefono + "'"));
             this.setRs(this.getP().executeQuery());
             if (this.rs.next()) {
                 System.out.println("Uno de los datos ingresados ya existen\nPor favor ingrese una nueva Cooperativa");
