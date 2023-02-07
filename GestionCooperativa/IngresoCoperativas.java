@@ -50,6 +50,7 @@ public class IngresoCoperativas {
     public void MenuingresoCooperativa() {
         Restricciones r = new Restricciones();
         Ingresos escaner = new Ingresos();
+        
         String email;
         String telefono;
         System.out.println("Ingrese el Nombre de la Cooperativa");
